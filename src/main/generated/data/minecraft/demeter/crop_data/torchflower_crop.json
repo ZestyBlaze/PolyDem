@@ -1,0 +1,6 @@
+{
+  "ageProperty": "age",
+  "daysToGrow": 2,
+  "maxAge": 2,
+  "optionalBlockConvert": "minecraft:torchflower"
+}

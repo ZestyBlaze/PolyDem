@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "dev.zestyblaze.demeter.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ChunkMapInvoker",
+    "CropBlockMixin",
+    "FarmlandBlockMixin",
+    "PlayerMixin",
+    "ServerPlayerMixin",
+    "StemBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+	}
+}

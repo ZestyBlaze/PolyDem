@@ -1,0 +1,79 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+	maven {
+		name = "Polymer"
+		url = "https://maven.nucleoid.xyz"
+	}
+	maven {
+		name = "FzzyMaven"
+		url = "https://maven.fzzyhmstrs.me/"
+	}
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/"
+	}
+}
+
+fabricApi {
+	configureDataGeneration {
+		client = true
+		modId = "demeter"
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	implementation include ("eu.pb4:polymer-core:${project.polymer_version}+${project.minecraft_version}")
+	implementation include ("eu.pb4:polymer-resource-pack:${project.polymer_version}+${project.minecraft_version}")
+	implementation include ("eu.pb4:polymer-resource-pack-extras:${project.polymer_version}+${project.minecraft_version}")
+	implementation include ("xyz.nucleoid:server-translations-api:${project.stapi_version}+${project.minecraft_major_version}")
+	implementation include ("eu.pb4:booklet:${project.booklet_version}+${project.minecraft_major_version}")
+	implementation include ("me.fzzyhmstrs:fzzy_config:${project.config_version}+${project.minecraft_major_version}")
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	inputs.property "projectName", project.name
+
+	from("LICENSE") {
+		rename { "${it}_${project.name}"}
+	}
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			from components.java
+		}
+	}
+
+	repositories {
+	}
+}

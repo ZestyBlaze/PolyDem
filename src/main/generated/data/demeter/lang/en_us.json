@@ -1,0 +1,8 @@
+{
+  "enchantment.demeter.barber": "Barber",
+  "item.demeter.quality_tooltip": "Quality: %s",
+  "item.demeter.quality_tooltip.copper": "Copper",
+  "item.demeter.quality_tooltip.iron": "Iron",
+  "item.demeter.quality_tooltip.netherite": "Netherite",
+  "tag.item.demeter.quality_products": "Quality Products"
+}
