@@ -1,0 +1,5 @@
+### Section: PageInfo
+title=Getting Started
+icon=player_head
+category=demeter:basics
+### EndSection: PageInfo

@@ -1,0 +1,5 @@
+### Section: PageInfo
+title=Taking Care of your Animals
+icon=demeter:animal_brush
+category=demeter:animals
+### EndSection: PageInfo

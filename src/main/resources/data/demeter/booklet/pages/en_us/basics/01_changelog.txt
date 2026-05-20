@@ -1,0 +1,5 @@
+### Section: PageInfo
+title=Changelog
+icon=paper
+category=demeter:basics
+### EndSection: PageInfo

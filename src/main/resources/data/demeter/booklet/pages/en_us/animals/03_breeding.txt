@@ -1,0 +1,5 @@
+### Section: PageInfo
+title=Breeding
+icon=wheat
+category=demeter:animals
+### EndSection: PageInfo

@@ -1,0 +1,5 @@
+### Section: PageInfo
+title=Growing Crops
+icon=carrot
+category=demeter:crops
+### EndSection: PageInfo

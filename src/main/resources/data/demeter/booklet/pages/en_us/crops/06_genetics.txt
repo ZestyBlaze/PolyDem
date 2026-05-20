@@ -1,0 +1,5 @@
+### Section: PageInfo
+title=Crop Genetics
+icon=potato
+category=demeter:crops
+### EndSection: PageInfo

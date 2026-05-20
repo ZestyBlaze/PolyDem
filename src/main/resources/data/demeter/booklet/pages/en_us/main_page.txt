@@ -1,0 +1,15 @@
+### Section: PageInfo
+title=<lang 'item.demeter.demeters_guide'>
+description=A Complete Guide to Farming, written by Demeter
+category=booklet:main_page
+model_override=minecraft:book
+### EndSection: PageInfo
+
+### Header: <lang booklet_category.demeter.basics>
+### Category Entries: demeter:basics
+
+### Header: <lang booklet_category.demeter.animals>
+### Category Entries: demeter:animals
+
+### Header: <lang booklet_category.demeter.crops>
+### Category Entries: demeter:crops
