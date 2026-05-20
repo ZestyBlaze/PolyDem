@@ -1,49 +1,42 @@
 package dev.zestyblaze.demeter.block;
 
-import dev.zestyblaze.demeter.block.other.SimpleFastBlock;
+import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.mixin.PropertiesAccessor;
 import dev.zestyblaze.demeter.registry.DemeterBlocks;
+import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.block.model.generic.BSMMParticleBlock;
+import eu.pb4.factorytools.api.virtualentity.BlockModel;
+import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.blocks.api.BlockModelType;
 import eu.pb4.polymer.blocks.api.PolymerBlockModel;
 import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.joml.Vector3f;
 import org.jspecify.annotations.Nullable;
 
 import java.util.EnumMap;
 
-public class PolymerRotatedPillarBlock extends SimpleFastBlock implements PolymerTexturedBlock {
-    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
+public class PolymerRotatedPillarBlock extends RotatedPillarBlock implements FactoryBlock, PolymerTexturedBlock {
     private final EnumMap<Direction.Axis, BlockState> AXIS_STATE_MAP = new EnumMap<>(Direction.Axis.class);
-
-    public static SimpleFastBlock create(Properties settings) {
-        if (PolymerBlockResourceUtils.getBlocksLeft(BlockModelType.FULL_BLOCK) > 0
-            //&& PolyFactoryConfig.get().useFastFullBlocks
-        ) {
-            return new TexturedBlock(settings);
-        }
-
-        return new VirtualBlock(settings);
-    }
+    private boolean useFullBlock = true;
 
     public PolymerRotatedPillarBlock(Properties properties) {
         super(properties);
-        registerDefaultState(defaultBlockState().setValue(AXIS, Direction.Axis.Y));
 
         AXIS_STATE_MAP.put(Direction.Axis.X, PolymerBlockResourceUtils.requestBlock(
                 BlockModelType.FULL_BLOCK, PolymerBlockModel.of(
@@ -60,6 +53,11 @@ public class PolymerRotatedPillarBlock extends SimpleFastBlock implements Polyme
                         ((PropertiesAccessor)properties).getId().identifier().withPrefix("block/"),
                         90, 0)
         ));
+
+        if (PolymerBlockResourceUtils.getBlocksLeft(BlockModelType.FULL_BLOCK) < 0
+                || !Demeter.config.miscConfig.useFullTexturedBlocks.get()) {
+            useFullBlock = false;
+        }
     }
 
     @Override
@@ -77,16 +75,23 @@ public class PolymerRotatedPillarBlock extends SimpleFastBlock implements Polyme
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, @Nullable PacketContext context) {
-        return AXIS_STATE_MAP.get(state.getValue(AXIS));
+        return useFullBlock ? AXIS_STATE_MAP.get(state.getValue(AXIS)) : Blocks.BARRIER.defaultBlockState();
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(AXIS);
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
+    public ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
+        var model = new BlockModel();
+        BlockState state = world.getBlockState(pos);
+        if (!useFullBlock) {
+            var element = ItemDisplayElementUtil.createSimple(this.asItem());
+            element.setScale(new Vector3f(2));
+            switch (state.getValue(AXIS)) {
+                case X -> element.setRotation(90, 90);
+                case Y -> element.setRotation(0, 0);
+                case Z -> element.setRotation(90, 0);
+            }
+            model.addElement(element);
+        }
+        return model;
     }
 }

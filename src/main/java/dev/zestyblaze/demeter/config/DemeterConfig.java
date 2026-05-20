@@ -9,7 +9,7 @@ import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 
-@Version(version = 1)
+@Version(version = 2)
 public class DemeterConfig extends Config {
     public DemeterConfig() {
         super(Demeter.createId("demeter"));
@@ -38,6 +38,8 @@ public class DemeterConfig extends Config {
     public static class MiscConfig extends ConfigSection {
         @Comment("Allows the player to sleep at any time of the day. Can be disabled if causing mod conflicts")
         public ValidatedBoolean canSleepWhenever = new ValidatedBoolean(true);
+        @Comment("Switches all blocks off of Polymer Textured Blocks if mod conflicts occur, will have a more negative impact on performance")
+        public ValidatedBoolean useFullTexturedBlocks = new ValidatedBoolean(false);
     }
 
     public static class QualityConfig extends ConfigSection {

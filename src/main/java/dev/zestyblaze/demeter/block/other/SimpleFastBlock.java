@@ -1,5 +1,6 @@
 package dev.zestyblaze.demeter.block.other;
 
+import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.mixin.PropertiesAccessor;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
@@ -26,8 +27,7 @@ public abstract class SimpleFastBlock extends Block implements PolymerBlock {
 
     public static SimpleFastBlock create(Properties settings) {
         if (PolymerBlockResourceUtils.getBlocksLeft(BlockModelType.FULL_BLOCK) > 0
-                //&& PolyFactoryConfig.get().useFastFullBlocks
-        ) {
+                && Demeter.config.miscConfig.useFullTexturedBlocks.get()) {
             return new TexturedBlock(settings);
         }
 
