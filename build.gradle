@@ -29,15 +29,17 @@ fabricApi {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	implementation include ("eu.pb4:polymer-core:${project.polymer_version}+${project.minecraft_version}")
-	implementation include ("eu.pb4:polymer-resource-pack:${project.polymer_version}+${project.minecraft_version}")
-	implementation include ("eu.pb4:polymer-resource-pack-extras:${project.polymer_version}+${project.minecraft_version}")
-	implementation include ("xyz.nucleoid:server-translations-api:${project.stapi_version}+${project.minecraft_major_version}")
-	implementation include ("eu.pb4:booklet:${project.booklet_version}+${project.minecraft_major_version}")
-	implementation include ("me.fzzyhmstrs:fzzy_config:${project.config_version}+${project.minecraft_major_version}")
+	minecraft ("com.mojang:minecraft:${project.minecraft_version}")
+	implementation ("net.fabricmc:fabric-loader:${project.loader_version}")
+	implementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+	implementation ("eu.pb4:polymer-core:${project.polymer_version}+${project.minecraft_version}")
+	implementation ("eu.pb4:polymer-blocks:${project.polymer_version}+${project.minecraft_version}")
+	implementation ("eu.pb4:polymer-resource-pack:${project.polymer_version}+${project.minecraft_version}")
+	implementation ("eu.pb4:polymer-virtual-entity:${project.polymer_version}+${project.minecraft_version}")
+	implementation ("eu.pb4:booklet:${project.booklet_version}+${project.minecraft_major_version}")
+	implementation ("eu.pb4:polymer-resource-pack-extras:${project.polymer_version}+${project.minecraft_version}")
+	implementation ("me.fzzyhmstrs:fzzy_config:${project.config_version}+${project.minecraft_major_version}")
+	implementation include("eu.pb4:factorytools:${factorytools_version}+${project.minecraft_major_version}")
 }
 
 processResources {

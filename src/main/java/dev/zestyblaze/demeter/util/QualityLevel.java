@@ -1,4 +1,4 @@
-package dev.zestyblaze.demeter.duck;
+package dev.zestyblaze.demeter.util;
 
 import com.mojang.serialization.Codec;
 import dev.zestyblaze.demeter.Demeter;

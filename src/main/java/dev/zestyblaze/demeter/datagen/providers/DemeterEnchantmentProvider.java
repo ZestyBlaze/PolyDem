@@ -1,5 +1,6 @@
 package dev.zestyblaze.demeter.datagen.providers;
 
+import dev.zestyblaze.demeter.DemeterItemTags;
 import dev.zestyblaze.demeter.registry.DemeterEnchantments;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -26,7 +27,25 @@ public class DemeterEnchantmentProvider extends FabricDynamicRegistryProvider {
                 Enchantment.definition(
                         itemGetter.getOrThrow(ConventionalItemTags.SHEAR_TOOLS),
                         2, 1,
-                        Enchantment.dynamicCost(20, 9),
+                        Enchantment.dynamicCost(15, 9),
+                        Enchantment.dynamicCost(65, 9), 4,
+                        EquipmentSlotGroup.MAINHAND
+                )
+        ));
+        register(context, DemeterEnchantments.COMFORT, Enchantment.enchantment(
+                Enchantment.definition(
+                        itemGetter.getOrThrow(DemeterItemTags.ANIMAL_BRUSH_TOOL),
+                        3, 3,
+                        Enchantment.dynamicCost(12, 7),
+                        Enchantment.dynamicCost(65, 7), 4,
+                        EquipmentSlotGroup.MAINHAND
+                )
+        ));
+        register(context, DemeterEnchantments.SPITE, Enchantment.enchantment(
+                Enchantment.definition(
+                        itemGetter.getOrThrow(DemeterItemTags.ANIMAL_BRUSH_TOOL),
+                        2, 3,
+                        Enchantment.dynamicCost(12, 9),
                         Enchantment.dynamicCost(65, 9), 4,
                         EquipmentSlotGroup.MAINHAND
                 )
@@ -40,7 +59,7 @@ public class DemeterEnchantmentProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return "Demeter Datapack Provider";
+        return "Demeter Enchantment Provider";
     }
 
     private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {

@@ -1,0 +1,28 @@
+{
+  "parent": "demeter:root",
+  "criteria": {
+    "use": {
+      "conditions": {
+        "trigger": "demeter:guidebook"
+      },
+      "trigger": "demeter:trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.demeter.guidebook.description"
+    },
+    "icon": {
+      "id": "demeter:demeters_guide"
+    },
+    "title": {
+      "translate": "advancements.demeter.guidebook.title"
+    }
+  },
+  "requirements": [
+    [
+      "use"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

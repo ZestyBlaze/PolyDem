@@ -2,8 +2,8 @@ package dev.zestyblaze.demeter.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.zestyblaze.demeter.duck.QualityLevel;
 import dev.zestyblaze.demeter.registry.DemeterComponents;
+import dev.zestyblaze.demeter.util.QualityLevel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;

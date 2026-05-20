@@ -3,7 +3,6 @@ package dev.zestyblaze.demeter.attachment;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.data.CropBlockData;
 import net.minecraft.core.BlockPos;
 
@@ -31,7 +30,8 @@ public record CropsInChunkAttachment(Map<BlockPos, CropBlockData> locations) {
                             },
                             p -> DataResult.success(p.getX() + "," + p.getY() + "," + p.getZ())
                     ),
-                    CropBlockData.CODEC).xmap(HashMap::new, Function.identity()).fieldOf("locations").forGetter(o -> (HashMap<BlockPos, CropBlockData>) o.locations)
+                    CropBlockData.CODEC).xmap(HashMap::new, Function.identity())
+                    .fieldOf("locations").forGetter(o -> (HashMap<BlockPos, CropBlockData>) o.locations)
     ).apply(func, CropsInChunkAttachment::new));
 
     public CropsInChunkAttachment() {

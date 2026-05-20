@@ -1,0 +1,6 @@
+{
+  "ageProperty": "age",
+  "ageToDouble": 3,
+  "daysToGrow": 2,
+  "maxAge": 4
+}

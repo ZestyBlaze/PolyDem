@@ -4,10 +4,10 @@ import com.google.common.collect.Lists;
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.attachment.CropsInChunkAttachment;
 import dev.zestyblaze.demeter.data.CropBlockData;
-import dev.zestyblaze.demeter.duck.CropData;
 import dev.zestyblaze.demeter.managers.DemeterCropStatsManager;
 import dev.zestyblaze.demeter.mixin.ChunkMapInvoker;
 import dev.zestyblaze.demeter.registry.DemeterAttachments;
+import dev.zestyblaze.demeter.data.CropData;
 import dev.zestyblaze.demeter.util.NewDayCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -16,9 +16,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -124,8 +126,19 @@ public class LevelEvents {
                                             int stage = Mth.floor(data.maxAge() * ((float) chunkData.getDays(pos) / days));
                                             IntegerProperty property = data.resolveProperty(state);
 
-                                            if (data.optionalBlockConvert().isPresent()) {
+                                            if (data.ageToDouble().isPresent()) {
+                                                if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER) {
+                                                    BlockState newLowerState = state.setValue(property, stage);
+
+                                                    level.setBlock(pos, newLowerState, 2);
+                                                    if (stage >= data.ageToDouble().get()) {
+                                                        level.setBlockAndUpdate(pos.above(), newLowerState.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER));
+                                                    }
+                                                }
+                                            } else if (data.optionalBlockConvert().isPresent()) {
                                                 if (stage == data.maxAge()) {
+                                                    level.getChunk(pos).getAttachedOrCreate(DemeterAttachments.CROPS_IN_CHUNK)
+                                                            .removeLocation(pos);
                                                     level.setBlockAndUpdate(pos, data.optionalBlockConvert().get().defaultBlockState());
                                                 } else {
                                                     level.setBlockAndUpdate(pos, state.setValue(property, stage));
@@ -135,11 +148,16 @@ public class LevelEvents {
                                             }
                                         }
 
+                                        //TODO: Need to rework to work with blocks that replace themselves
+                                        /*
                                         if (Demeter.config.cropConfig.doCropsWilt.get()) {
                                             if (chunkData.getDays(pos) == days + Demeter.config.cropConfig.daysToWilt.get()) {
                                                 level.setBlockAndUpdate(pos, Blocks.DEAD_BUSH.defaultBlockState());
+                                                level.getChunk(pos).getAttachedOrCreate(DemeterAttachments.CROPS_IN_CHUNK)
+                                                        .removeLocation(pos);
                                             }
                                         }
+                                         */
                                     }
                                 }
                             }

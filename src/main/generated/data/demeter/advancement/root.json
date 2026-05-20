@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "any_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:gui/advancements/backgrounds/husbandry",
+    "description": {
+      "translate": "advancements.demeter.root.description"
+    },
+    "icon": {
+      "id": "demeter:animal_brush"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.demeter.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "any_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

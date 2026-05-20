@@ -1,6 +1,6 @@
 package dev.zestyblaze.demeter.datagen.providers;
 
-import dev.zestyblaze.demeter.duck.CropData;
+import dev.zestyblaze.demeter.data.CropData;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricCodecDataProvider;
 import net.minecraft.core.HolderLookup;
@@ -24,13 +24,13 @@ public class DemeterCropDataProvider extends FabricCodecDataProvider<CropData> {
         minecraftCrop(provider, "carrots", 4, 7);
         minecraftCrop(provider, "potatoes", 5, 7);
         minecraftCrop(provider, "beetroots", 3, 3);
-        //minecraftCrop(provider, "pitcher_crop", 2);
+        minecraftCrop(provider, "pitcher_crop", 2, 4, 3);
         minecraftCrop(provider, "torchflower_crop", 2, 2, Blocks.TORCHFLOWER);
     }
 
     @Override
     public String getName() {
-        return "CropData";
+        return "Demeter CropData";
     }
 
     private void minecraftCrop(BiConsumer<Identifier, CropData> provider, String cropName, Integer daysToGrow, Integer maxAge) {
@@ -38,6 +38,10 @@ public class DemeterCropDataProvider extends FabricCodecDataProvider<CropData> {
     }
 
     private void minecraftCrop(BiConsumer<Identifier, CropData> provider, String cropName, Integer daysToGrow, Integer maxAge, Block block) {
-        provider.accept(Identifier.withDefaultNamespace(cropName), new CropData(daysToGrow, maxAge, "age", Optional.of(block)));
+        provider.accept(Identifier.withDefaultNamespace(cropName), new CropData(daysToGrow, maxAge, "age", block));
+    }
+
+    private void minecraftCrop(BiConsumer<Identifier, CropData> provider, String cropName, Integer daysToGrow, Integer maxAge, Integer daysToDouble) {
+        provider.accept(Identifier.withDefaultNamespace(cropName), new CropData(daysToGrow, maxAge, "age", Optional.empty(), Optional.of(daysToDouble)));
     }
 }

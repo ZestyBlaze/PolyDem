@@ -6,7 +6,9 @@
     "ChunkMapInvoker",
     "CropBlockMixin",
     "FarmlandBlockMixin",
+    "PitcherCropBlockMixin",
     "PlayerMixin",
+    "PropertiesAccessor",
     "ServerPlayerMixin",
     "StemBlockMixin"
   ],

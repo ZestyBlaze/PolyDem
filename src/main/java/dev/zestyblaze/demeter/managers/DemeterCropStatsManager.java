@@ -1,7 +1,7 @@
 package dev.zestyblaze.demeter.managers;
 
 import dev.zestyblaze.demeter.Demeter;
-import dev.zestyblaze.demeter.duck.CropData;
+import dev.zestyblaze.demeter.data.CropData;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DemeterCropStatsManager extends SimpleJsonResourceReloadListener<CropData> {
-    public static final Map<Block, CropData> newMap = new HashMap<>();
+    private static final Map<Block, CropData> newMap = new HashMap<>();
 
     public DemeterCropStatsManager(HolderLookup.Provider registries) {
         super(registries, CropData.CODEC, ResourceKey.createRegistryKey(Demeter.createId("crop_data")));

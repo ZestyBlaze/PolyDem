@@ -8,7 +8,6 @@ import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
-import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedNumber;
 
 @Version(version = 1)
 public class DemeterConfig extends Config {
@@ -16,7 +15,8 @@ public class DemeterConfig extends Config {
         super(Demeter.createId("demeter"));
     }
 
-    public CropConfig cropConfig = new CropConfig();
+    //TODO Removing crop wilting for now
+    //public CropConfig cropConfig = new CropConfig();
     public FarmlandConfig farmlandConfig = new FarmlandConfig();
     public MiscConfig miscConfig = new MiscConfig();
     public QualityConfig qualityConfig = new QualityConfig();
