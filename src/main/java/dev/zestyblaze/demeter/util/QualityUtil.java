@@ -1,9 +1,9 @@
 package dev.zestyblaze.demeter.util;
 
 import dev.zestyblaze.demeter.Demeter;
-import dev.zestyblaze.demeter.DemeterItemTags;
 import dev.zestyblaze.demeter.component.QualityComponent;
 import dev.zestyblaze.demeter.registry.DemeterComponents;
+import dev.zestyblaze.demeter.tags.DemeterItemTags;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Random;

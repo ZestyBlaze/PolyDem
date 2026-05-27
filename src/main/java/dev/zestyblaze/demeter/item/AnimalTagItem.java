@@ -1,6 +1,9 @@
 package dev.zestyblaze.demeter.item;
 
+import dev.zestyblaze.demeter.managers.DemeterAnimalNamesManager;
+import dev.zestyblaze.demeter.registry.DemeterAttachments;
 import dev.zestyblaze.demeter.registry.DemeterItems;
+import dev.zestyblaze.demeter.util.AnimalSexes;
 import eu.pb4.polymer.core.api.item.SimplePolymerItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -18,22 +21,20 @@ public class AnimalTagItem extends SimplePolymerItem {
     }
 
     @Override
-    public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
-        if (!pPlayer.level().isClientSide() && pInteractionTarget instanceof Animal animal) {
-            if (pPlayer.getName().getString().equals("ElysiaSilly") || pPlayer.getName().getString().equals("blerbedoob")) {
-                if (pPlayer.level().getRandom().nextInt(100) >= 15) {
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity livingEntity, InteractionHand usedHand) {
+        if (!player.level().isClientSide() && livingEntity instanceof Animal animal) {
+            if (player.getName().getString().equals("ElysiaSilly") || player.getName().getString().equals("blerbedoob")) {
+                if (player.level().getRandom().nextInt(100) >= 15) {
                     animal.setCustomName(Component.literal("Pippi"));
                     return InteractionResult.SUCCESS_SERVER;
                 }
             }
 
-            /*
-            AnimalSexes sex = AnimalUtil.getSex(animal);
-            List<String> possibleNames = NamesLoader.NAME_LIST.get(sex);
-            String name = possibleNames.get(pPlayer.level().getRandom().nextInt(possibleNames.size()));
-             */
+            AnimalSexes sex = animal.getAttachedOrCreate(DemeterAttachments.ANIMAL_DATA).getSex();
+            List<String> possibleNames = DemeterAnimalNamesManager.NAME_LIST.get(sex);
+            String name = possibleNames.get(player.level().getRandom().nextInt(possibleNames.size()));
 
-            animal.setCustomName(Component.literal("name"));
+            animal.setCustomName(Component.literal(name));
 
             return InteractionResult.SUCCESS_SERVER;
         }

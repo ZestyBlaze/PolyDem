@@ -21,21 +21,34 @@ public class DemeterModelsProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
         logWithHorizontal(blockModelGenerators, DemeterBlocks.MAPLE_LOG);
         logWithHorizontal(blockModelGenerators, DemeterBlocks.STRIPPED_MAPLE_LOG);
-
-        blockModelGenerators.plainModel(TexturedModel.CUBE.create(DemeterBlocks.MAPLE_PLANKS,
-                blockModelGenerators.modelOutput));
+        leavesModel(blockModelGenerators, DemeterBlocks.MAPLE_LEAVES);
+        cubeModel(blockModelGenerators, DemeterBlocks.MAPLE_PLANKS);
     }
 
     @Override
     public void generateItemModels(ItemModelGenerators itemModelGenerators) {
         itemModelGenerators.generateFlatItem(DemeterItems.ANIMAL_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.ANIMAL_TAG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.MAPLE_SYRUP_BOTTLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.MILK_BOTTLE, ModelTemplates.FLAT_ITEM);
+    }
+
+    public void cubeModel(BlockModelGenerators blockModelGenerators, Block block) {
+        Identifier model = TexturedModel.CUBE.create(block, blockModelGenerators.modelOutput);
+        blockModelGenerators.plainModel(model);
+        blockModelGenerators.registerSimpleItemModel(block, model);
+    }
+
+    public void leavesModel(BlockModelGenerators blockModelGenerators, Block block) {
+        Identifier model = TexturedModel.LEAVES.create(block, blockModelGenerators.modelOutput);
+        blockModelGenerators.plainModel(model);
+        blockModelGenerators.registerSimpleItemModel(block, model);
     }
 
     public void logWithHorizontal(BlockModelGenerators blockModelGenerators, Block block) {
         TextureMapping logMapping = TextureMapping.logColumn(block);
         Identifier model = ModelTemplates.CUBE_COLUMN.create(block, logMapping, blockModelGenerators.modelOutput);
-        BlockModelGenerators.plainVariant(model);
+        blockModelGenerators.plainVariant(model);
         blockModelGenerators.registerSimpleItemModel(block, model);
     }
 }

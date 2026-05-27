@@ -10,8 +10,12 @@ public class DemeterDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+
 		pack.addProvider(DemeterAdvancementsProvider::new);
 		pack.addProvider(DemeterAnimalDataProvider::new);
+		pack.addProvider(DemeterBiomeTagProvider::new);
+		pack.addProvider(DemeterBlockLootProvider::new);
+		pack.addProvider(DemeterBlockTagsProvider::new);
 		pack.addProvider(DemeterCropDataProvider::new);
 		pack.addProvider(DemeterEnchantmentProvider::new);
 		pack.addProvider(DemeterEnchantmentTagsProvider::new);
@@ -19,10 +23,13 @@ public class DemeterDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(DemeterItemTagsProvider::new);
 		pack.addProvider(DemeterModelsProvider::new);
 		pack.addProvider(DemeterRecipeProvider::new);
+		pack.addProvider(DemeterWorldGenProvider::new);
 	}
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		registryBuilder.add(Registries.CONFIGURED_FEATURE, DemeterWorldGenProvider::bootstrapConfiguredFeatures);
 		registryBuilder.add(Registries.ENCHANTMENT, DemeterEnchantmentProvider::bootstrap);
+		registryBuilder.add(Registries.PLACED_FEATURE, DemeterWorldGenProvider::bootstrapPlacedFeatures);
 	}
 }

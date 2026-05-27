@@ -4,7 +4,6 @@ import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.mixin.PropertiesAccessor;
 import dev.zestyblaze.demeter.registry.DemeterBlocks;
 import eu.pb4.factorytools.api.block.FactoryBlock;
-import eu.pb4.factorytools.api.block.model.generic.BSMMParticleBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.blocks.api.BlockModelType;
@@ -36,7 +35,7 @@ public class PolymerRotatedPillarBlock extends RotatedPillarBlock implements Fac
     private boolean useFullBlock = true;
 
     public PolymerRotatedPillarBlock(Properties properties) {
-        super(properties);
+        super(properties.noOcclusion());
 
         AXIS_STATE_MAP.put(Direction.Axis.X, PolymerBlockResourceUtils.requestBlock(
                 BlockModelType.FULL_BLOCK, PolymerBlockModel.of(
@@ -81,11 +80,10 @@ public class PolymerRotatedPillarBlock extends RotatedPillarBlock implements Fac
     @Override
     public ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         var model = new BlockModel();
-        BlockState state = world.getBlockState(pos);
         if (!useFullBlock) {
             var element = ItemDisplayElementUtil.createSimple(this.asItem());
             element.setScale(new Vector3f(2));
-            switch (state.getValue(AXIS)) {
+            switch (initialBlockState.getValue(AXIS)) {
                 case X -> element.setRotation(90, 90);
                 case Y -> element.setRotation(0, 0);
                 case Z -> element.setRotation(90, 0);

@@ -1,0 +1,32 @@
+{
+  "parent": "demeter:root",
+  "criteria": {
+    "obtain_maple_syrup": {
+      "conditions": {
+        "items": [
+          {
+            "items": "demeter:maple_syrup_bottle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.demeter.obtain_maple_syrup.desc"
+    },
+    "icon": {
+      "id": "demeter:maple_syrup_bottle"
+    },
+    "title": {
+      "translate": "advancement.demeter.obtain_maple_syrup"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_maple_syrup"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,7 +1,7 @@
 package dev.zestyblaze.demeter.datagen.providers;
 
-import dev.zestyblaze.demeter.DemeterItemTags;
 import dev.zestyblaze.demeter.registry.DemeterEnchantments;
+import dev.zestyblaze.demeter.tags.DemeterItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;

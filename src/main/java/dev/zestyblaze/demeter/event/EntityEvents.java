@@ -1,7 +1,6 @@
 package dev.zestyblaze.demeter.event;
 
 import dev.zestyblaze.demeter.attachment.DemeterAnimalAttachment;
-import dev.zestyblaze.demeter.data.AnimalData;
 import dev.zestyblaze.demeter.managers.DemeterAnimalStatsManager;
 import dev.zestyblaze.demeter.registry.DemeterAttachments;
 import dev.zestyblaze.demeter.util.AnimalSexes;

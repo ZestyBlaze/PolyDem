@@ -1,6 +1,7 @@
 package dev.zestyblaze.demeter.registry;
 
 import dev.zestyblaze.demeter.Demeter;
+import dev.zestyblaze.demeter.block.PolymerLeafBlock;
 import dev.zestyblaze.demeter.block.PolymerRotatedPillarBlock;
 import dev.zestyblaze.demeter.block.other.SimpleFastBlock;
 import net.minecraft.core.Registry;
@@ -17,6 +18,7 @@ import java.util.function.Function;
 public class DemeterBlocks {
     public static final Block MAPLE_LOG = register("maple_log", BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG), PolymerRotatedPillarBlock::new);
     public static final Block STRIPPED_MAPLE_LOG = register("stripped_maple_log", BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG), PolymerRotatedPillarBlock::new);
+    public static final Block MAPLE_LEAVES = register("maple_leaves", BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), PolymerLeafBlock::create);
     public static final Block MAPLE_PLANKS = register("maple_planks", BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), SimpleFastBlock::create);
 
     public static void init() {

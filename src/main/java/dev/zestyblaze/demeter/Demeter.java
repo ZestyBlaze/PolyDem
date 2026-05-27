@@ -2,18 +2,23 @@ package dev.zestyblaze.demeter;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import dev.zestyblaze.demeter.registry.*;
 import dev.zestyblaze.demeter.config.DemeterConfig;
+import dev.zestyblaze.demeter.datagen.providers.DemeterWorldGenProvider;
 import dev.zestyblaze.demeter.event.BlockEvents;
 import dev.zestyblaze.demeter.event.EntityEvents;
 import dev.zestyblaze.demeter.event.LevelEvents;
+import dev.zestyblaze.demeter.managers.DemeterAnimalNamesManager;
 import dev.zestyblaze.demeter.managers.DemeterAnimalStatsManager;
 import dev.zestyblaze.demeter.managers.DemeterCropStatsManager;
+import dev.zestyblaze.demeter.registry.*;
+import dev.zestyblaze.demeter.tags.DemeterBiomeTags;
 import dev.zestyblaze.demeter.util.NewDayCallback;
 import dev.zestyblaze.demeter.util.QualityUtil;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
@@ -24,6 +29,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
@@ -44,10 +50,11 @@ public class Demeter implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		//Inits
-		DemeterBlocks.init();
 		DemeterAdvancementCriterion.init();
 		DemeterAttachments.init();
+		DemeterBlocks.init();
 		DemeterComponents.init();
+		DemeterConsumables.init();
 		DemeterItems.init();
 
 		//Event Callbacks
@@ -82,11 +89,18 @@ public class Demeter implements ModInitializer {
 		ItemComponentTooltipProviderRegistry.addFirst(DemeterComponents.QUALITY);
 
 		DataResourceLoader.get().registerReloadListener(createId("animal_data"), DemeterAnimalStatsManager::new);
+		DataResourceLoader.get().registerReloadListener(createId("animal_names"), new DemeterAnimalNamesManager());
 		DataResourceLoader.get().registerReloadListener(createId("crop_data"), DemeterCropStatsManager::new);
 
 		DefaultItemComponentEvents.MODIFY.register(context -> {
 			context.modify(Items.SHEARS, builder -> builder.set(DataComponents.ENCHANTABLE, new Enchantable(10)));
 		});
+
+		BiomeModifications.addFeature(
+				BiomeSelectors.tag(DemeterBiomeTags.HAS_MAPLE_TREES),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				DemeterWorldGenProvider.MAPLE_TREES_PF
+		);
 
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
 	}

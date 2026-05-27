@@ -12,10 +12,8 @@ import net.minecraft.advancements.CriterionTriggerInstance;
  */
 public class DemeterAdvancementCriterion {
     public static final TriggerCriterion TRIGGER = register("trigger", new TriggerCriterion());
-    public static void init() {
 
-    }
-
+    public static void init() {}
 
     public static <E extends CriterionTriggerInstance, T extends CriterionTrigger<E>> T register(String path, T item) {
         CriteriaTriggers.register(Demeter.MOD_ID + ":" + path, item);

@@ -1,0 +1,28 @@
+{
+  "parent": "demeter:pet_animal",
+  "criteria": {
+    "brushed_animal": {
+      "conditions": {
+        "trigger": "demeter:brushed_animal"
+      },
+      "trigger": "demeter:trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.demeter.animal_brushed.desc"
+    },
+    "icon": {
+      "id": "demeter:animal_brush"
+    },
+    "title": {
+      "translate": "advancement.demeter.animal_brushed"
+    }
+  },
+  "requirements": [
+    [
+      "brushed_animal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

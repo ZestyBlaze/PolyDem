@@ -1,0 +1,28 @@
+{
+  "parent": "demeter:root",
+  "criteria": {
+    "pet_animal": {
+      "conditions": {
+        "trigger": "demeter:pet_animal"
+      },
+      "trigger": "demeter:trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.demeter.animal_pet.desc"
+    },
+    "icon": {
+      "id": "minecraft:cow_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.demeter.animal_pet"
+    }
+  },
+  "requirements": [
+    [
+      "pet_animal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

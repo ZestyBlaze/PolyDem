@@ -1,0 +1,30 @@
+{
+  "parent": "demeter:brushed_animal",
+  "criteria": {
+    "brushed_animal_spite": {
+      "conditions": {
+        "trigger": "demeter:brushed_animal_spite"
+      },
+      "trigger": "demeter:trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.demeter.animal_brushed_spite.desc"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "demeter:animal_brush"
+    },
+    "title": {
+      "translate": "advancement.demeter.animal_brushed_spite"
+    }
+  },
+  "requirements": [
+    [
+      "brushed_animal_spite"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

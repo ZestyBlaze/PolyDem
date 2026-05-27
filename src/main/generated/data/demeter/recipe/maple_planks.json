@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#demeter:maple_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "demeter:maple_planks"
+  }
+}

@@ -9,7 +9,7 @@ import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 
-@Version(version = 2)
+@Version(version = 1)
 public class DemeterConfig extends Config {
     public DemeterConfig() {
         super(Demeter.createId("demeter"));
