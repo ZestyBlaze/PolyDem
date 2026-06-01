@@ -19,6 +19,7 @@ import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
@@ -96,6 +97,11 @@ public class Demeter implements ModInitializer {
 			context.modify(Items.SHEARS, builder -> builder.set(DataComponents.ENCHANTABLE, new Enchantable(10)));
 		});
 
+		BiomeModifications.addFeature(
+				BiomeSelectors.tag(DemeterBiomeTags.HAS_BAMBOO_SHOOTS),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				DemeterWorldGenProvider.BAMBOO_SHOOTS_PATCH_PF
+		);
 		BiomeModifications.addFeature(
 				BiomeSelectors.tag(DemeterBiomeTags.HAS_MAPLE_TREES),
 				GenerationStep.Decoration.VEGETAL_DECORATION,

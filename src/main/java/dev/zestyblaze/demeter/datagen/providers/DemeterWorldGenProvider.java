@@ -14,21 +14,23 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
+import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.concurrent.CompletableFuture;
 
 public class DemeterWorldGenProvider extends FabricDynamicRegistryProvider {
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BAMBOO_SHOOTS_PATCH_CF = createKey("bamboo_shoots");
+    public static final ResourceKey<PlacedFeature> BAMBOO_SHOOTS_PATCH_PF = register("bamboo_shoots");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAPLE_TREES_CF = createKey("maple_trees");
     public static final ResourceKey<PlacedFeature> MAPLE_TREES_PF = register("maple_trees");
 
@@ -38,6 +40,7 @@ public class DemeterWorldGenProvider extends FabricDynamicRegistryProvider {
 
     public static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         FeatureUtils.register(context, MAPLE_TREES_CF, Feature.TREE, createMaple().build());
+        FeatureUtils.register(context, BAMBOO_SHOOTS_PATCH_CF, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(DemeterBlocks.BAMBOO_SHOOTS)));
     }
 
     public static void bootstrapPlacedFeatures(BootstrapContext<PlacedFeature> context) {
@@ -50,6 +53,16 @@ public class DemeterWorldGenProvider extends FabricDynamicRegistryProvider {
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
                 BiomeFilter.biome(),
                 PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+        );
+
+        PlacementUtils.register(context, BAMBOO_SHOOTS_PATCH_PF, holderGetter.getOrThrow(MAPLE_TREES_CF),
+                RarityFilter.onAverageOnceEvery(4),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome(),
+                CountPlacement.of(24),
+                RandomOffsetPlacement.ofTriangle(5, 3),
+                BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
         );
     }
 

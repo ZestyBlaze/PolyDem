@@ -18,6 +18,7 @@ public class DemeterBiomeTagProvider extends FabricTagsProvider<Biome> {
     @Override
     @SuppressWarnings("unchecked")
     protected void addTags(HolderLookup.Provider registries) {
+        builder(DemeterBiomeTags.HAS_BAMBOO_SHOOTS).add(Biomes.JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SPARSE_JUNGLE);
         builder(DemeterBiomeTags.HAS_MAPLE_TREES).add(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST);
     }
 }

@@ -39,6 +39,7 @@ public class DemeterEnUsProvider extends FabricLanguageProvider {
         builder.add("advancements.demeter.guidebook.description", "Open the Demeter's Guide");
         builder.add("advancement.demeter.obtain_maple_syrup", "Tapped");
         builder.add("advancement.demeter.obtain_maple_syrup.desc", "Obtain a Maple Syrup Bottle from tapping a tree");
+        builder.add(DemeterBlocks.BAMBOO_SHOOTS, "Bamboo Shoots");
         builder.add(DemeterBlocks.MAPLE_LOG, "Maple Log");
         builder.add(DemeterBlocks.STRIPPED_MAPLE_LOG, "Stripped Maple Log");
         builder.add(DemeterBlocks.MAPLE_LEAVES, "Maple Leaves");

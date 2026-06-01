@@ -10,6 +10,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class DemeterModelsProvider extends FabricModelProvider {
@@ -23,6 +24,7 @@ public class DemeterModelsProvider extends FabricModelProvider {
         logWithHorizontal(blockModelGenerators, DemeterBlocks.STRIPPED_MAPLE_LOG);
         leavesModel(blockModelGenerators, DemeterBlocks.MAPLE_LEAVES);
         cubeModel(blockModelGenerators, DemeterBlocks.MAPLE_PLANKS);
+        createCrossBlock(blockModelGenerators, DemeterBlocks.BAMBOO_SHOOTS, DemeterItems.BAMBOO_SHOOTS, BlockModelGenerators.PlantType.NOT_TINTED);
     }
 
     @Override
@@ -50,5 +52,12 @@ public class DemeterModelsProvider extends FabricModelProvider {
         Identifier model = ModelTemplates.CUBE_COLUMN.create(block, logMapping, blockModelGenerators.modelOutput);
         blockModelGenerators.plainVariant(model);
         blockModelGenerators.registerSimpleItemModel(block, model);
+    }
+
+    private void createCrossBlock(BlockModelGenerators blockModelGenerators, Block block, Item plantItem, BlockModelGenerators.PlantType plantType) {
+        TextureMapping texturemapping = plantType.getTextureMapping(block);
+        Identifier model = plantType.getCross().create(block, texturemapping, blockModelGenerators.modelOutput);
+        blockModelGenerators.plainVariant(model);
+        blockModelGenerators.registerSimpleItemModel(plantItem, blockModelGenerators.createFlatItemModelWithBlockTexture(plantItem, block));
     }
 }

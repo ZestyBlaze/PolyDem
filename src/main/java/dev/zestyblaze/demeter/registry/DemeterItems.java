@@ -30,6 +30,7 @@ public class DemeterItems {
                 output.accept(DemeterItems.STRIPPED_MAPLE_LOG);
                 output.accept(DemeterItems.MAPLE_LEAVES);
                 output.accept(DemeterItems.MAPLE_PLANKS);
+                output.accept(DemeterItems.BAMBOO_SHOOTS);
             })
             .build();
 
@@ -49,6 +50,8 @@ public class DemeterItems {
             new Item.Properties().useBlockDescriptionPrefix().setId(createKey("maple_leaves")));
     public static final BlockItem MAPLE_PLANKS = new PolymerBlockItem(DemeterBlocks.MAPLE_PLANKS,
             new Item.Properties().useBlockDescriptionPrefix().setId(createKey("maple_planks")));
+    public static final BlockItem BAMBOO_SHOOTS = new PolymerBlockItem(DemeterBlocks.BAMBOO_SHOOTS,
+            new Item.Properties().useBlockDescriptionPrefix().setId(createKey("bamboo_shoots")));
 
     public static void init() {
         PolymerCreativeModeTabUtils.registerPolymerCreativeModeTab(Demeter.createId("tab"), DEMETER_TAB);
@@ -61,6 +64,7 @@ public class DemeterItems {
         Registry.register(BuiltInRegistries.ITEM, Demeter.createId("stripped_maple_log"), STRIPPED_MAPLE_LOG);
         Registry.register(BuiltInRegistries.ITEM, Demeter.createId("maple_leaves"), MAPLE_LEAVES);
         Registry.register(BuiltInRegistries.ITEM, Demeter.createId("maple_planks"), MAPLE_PLANKS);
+        Registry.register(BuiltInRegistries.ITEM, Demeter.createId("bamboo_shoots"), BAMBOO_SHOOTS);
     }
 
     public static ResourceKey<Item> createKey(String id) {
