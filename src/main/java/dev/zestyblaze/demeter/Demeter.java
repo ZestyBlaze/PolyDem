@@ -18,18 +18,21 @@ import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.resource.v1.DataResourceLoader;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -41,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Demeter implements ModInitializer {
 	public static final String MOD_ID = "demeter";
@@ -53,10 +57,15 @@ public class Demeter implements ModInitializer {
 		//Inits
 		DemeterAdvancementCriterion.init();
 		DemeterAttachments.init();
+		DemeterBlockEntities.init();
 		DemeterBlocks.init();
+		DemeterBlockStateProviders.init();
 		DemeterComponents.init();
 		DemeterConsumables.init();
+		DemeterCreativeModeTabs.init();
 		DemeterItems.init();
+		DemeterRecipeSerializers.init();
+		DemeterRecipeTypes.init();
 
 		//Event Callbacks
 		BlockEvents.init();
@@ -98,9 +107,14 @@ public class Demeter implements ModInitializer {
 		});
 
 		BiomeModifications.addFeature(
-				BiomeSelectors.tag(DemeterBiomeTags.HAS_BAMBOO_SHOOTS),
+				doubleTag(ConventionalBiomeTags.IS_JUNGLE, ConventionalBiomeTags.IS_HOT),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
 				DemeterWorldGenProvider.BAMBOO_SHOOTS_PATCH_PF
+		);
+		BiomeModifications.addFeature(
+				herbPred(),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				DemeterWorldGenProvider.HERB_PATCH_PF
 		);
 		BiomeModifications.addFeature(
 				BiomeSelectors.tag(DemeterBiomeTags.HAS_MAPLE_TREES),
@@ -121,5 +135,15 @@ public class Demeter implements ModInitializer {
 
 	public static <E> Codec<E> stringResolverCodec(Function<E, String> p_184406_, Function<String, E> p_184407_) {
 		return Codec.STRING.flatXmap((p_184404_) -> Optional.ofNullable(p_184407_.apply(p_184404_)).map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Unknown element name:" + p_184404_)), (p_184401_) -> Optional.ofNullable(p_184406_.apply(p_184401_)).map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Element with unknown name: " + p_184401_)));
+	}
+
+	public static Predicate<BiomeSelectionContext> doubleTag(TagKey<Biome> tag1, TagKey<Biome> tag2) {
+		return context -> context.hasTag(tag1) && context.hasTag(tag2);
+	}
+
+	public static Predicate<BiomeSelectionContext> herbPred() {
+		return context -> !context.hasTag(ConventionalBiomeTags.IS_AQUATIC) &&
+				!context.hasTag(ConventionalBiomeTags.IS_HOT)
+				&& !context.hasTag(ConventionalBiomeTags.IS_COLD);
 	}
 }

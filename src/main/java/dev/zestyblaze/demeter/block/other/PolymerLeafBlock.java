@@ -1,7 +1,6 @@
-package dev.zestyblaze.demeter.block;
+package dev.zestyblaze.demeter.block.other;
 
 import dev.zestyblaze.demeter.Demeter;
-import dev.zestyblaze.demeter.block.other.SimpleFastBlock;
 import dev.zestyblaze.demeter.mixin.PropertiesAccessor;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;

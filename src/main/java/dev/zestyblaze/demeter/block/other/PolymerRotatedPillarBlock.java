@@ -1,4 +1,4 @@
-package dev.zestyblaze.demeter.block;
+package dev.zestyblaze.demeter.block.other;
 
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.mixin.PropertiesAccessor;
@@ -58,7 +58,6 @@ public class PolymerRotatedPillarBlock extends RotatedPillarBlock implements Fac
             useFullBlock = false;
         }
     }
-
     @Override
     protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide()) {

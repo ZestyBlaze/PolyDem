@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 
 public class DemeterItemTags {
     public static final TagKey<Item> ANIMAL_BRUSH_TOOL = commonTag("tools/animal_brush");
+    public static final TagKey<Item> GRILL_STARTERS = modTag("grill_starters");
     public static final TagKey<Item> MAPLE_LOGS = modTag("maple_logs");
     public static final TagKey<Item> QUALITY_PRODUCTS = modTag("quality_products");
 

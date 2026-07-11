@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "demeter:block/brick_grill_bottom",
+    "front": "demeter:block/brick_grill_front",
+    "side": "demeter:block/brick_grill_side",
+    "top": "demeter:block/brick_grill_top"
+  }
+}

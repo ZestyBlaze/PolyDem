@@ -27,5 +27,7 @@ public class DemeterBlockTagsProvider extends FabricTagsProvider.BlockTagsProvid
         valueLookupBuilder(BlockTags.LEAVES).add(DemeterBlocks.MAPLE_LEAVES);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE).add(DemeterBlocks.MAPLE_LOG, DemeterBlocks.STRIPPED_MAPLE_LOG, DemeterBlocks.MAPLE_PLANKS);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE).add(DemeterBlocks.MAPLE_LEAVES);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(DemeterBlocks.BRICK_GRILL);
+        valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL).add(DemeterBlocks.BRICK_GRILL);
     }
 }

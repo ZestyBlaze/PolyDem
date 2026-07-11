@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "#c:crops"
+  ],
+  "result": {
+    "id": "demeter:demeters_guide"
+  }
+}

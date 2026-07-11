@@ -1,0 +1,10 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "ingredients": [
+    "minecraft:potato"
+  ],
+  "result": {
+    "id": "minecraft:baked_potato"
+  }
+}

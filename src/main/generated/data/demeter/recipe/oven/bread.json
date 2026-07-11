@@ -1,0 +1,10 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "ingredients": [
+    "#c:foods/dough"
+  ],
+  "result": {
+    "id": "minecraft:bread"
+  }
+}

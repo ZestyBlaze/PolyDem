@@ -97,15 +97,14 @@ public class MergeableCodecDataManager<RAW, FINE> extends SimplePreparableReload
             map.put(id, merger.apply(raws));
         }
 
-        LOGGER.info("Data loader for {} loaded {} finalized objects", this.folderName, this.data.size());
         return Map.copyOf(map);
     }
 
     /** Main-thread processing, runs after prepare concludes **/
     @Override
-    protected void apply(final Map<Identifier, FINE> processedData, final ResourceManager resourceManager, final ProfilerFiller profiler)
-    {
+    protected void apply(final Map<Identifier, FINE> processedData, final ResourceManager resourceManager, final ProfilerFiller profiler) {
         // now that we're on the main thread, we can finalize the data
         this.data = processedData;
+        LOGGER.info("Loaded {} entries from {}", this.data.size(), this.folderName);
     }
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": "minecraft:brick",
+    "c": "minecraft:coal",
+    "f": "minecraft:smoker"
+  },
+  "pattern": [
+    " c ",
+    "bfb",
+    "bbb"
+  ],
+  "result": {
+    "id": "demeter:brick_grill"
+  }
+}

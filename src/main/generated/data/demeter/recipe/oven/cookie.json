@@ -1,0 +1,12 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "ingredients": [
+    "demeter:flour",
+    "demeter:chocolate"
+  ],
+  "result": {
+    "count": 4,
+    "id": "minecraft:cookie"
+  }
+}

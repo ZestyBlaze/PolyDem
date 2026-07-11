@@ -1,4 +1,4 @@
-package dev.zestyblaze.demeter.block;
+package dev.zestyblaze.demeter.block.other;
 
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.mixin.PropertiesAccessor;
@@ -26,12 +26,12 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-public abstract class SimplePolymerBiomePlantBlock extends Block implements PolymerBlock {
-    public SimplePolymerBiomePlantBlock(Properties settings) {
+public abstract class SimplePolymerBushBlock extends Block implements PolymerBlock {
+    public SimplePolymerBushBlock(Properties settings) {
         super(settings);
     }
 
-    public static SimplePolymerBiomePlantBlock create(Properties settings) {
+    public static SimplePolymerBushBlock create(Properties settings) {
         if (PolymerBlockResourceUtils.getBlocksLeft(BlockModelType.BIOME_PLANT) > 0
                 && Demeter.config.miscConfig.useFullTexturedBlocks.get()) {
             return new TexturedBlock(settings);
@@ -60,7 +60,7 @@ public abstract class SimplePolymerBiomePlantBlock extends Block implements Poly
         return !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
     }
 
-    private static class TexturedBlock extends SimplePolymerBiomePlantBlock implements PolymerTexturedBlock {
+    private static class TexturedBlock extends SimplePolymerBushBlock implements PolymerTexturedBlock {
         private final BlockState state;
 
         public TexturedBlock(Properties settings) {
@@ -75,7 +75,7 @@ public abstract class SimplePolymerBiomePlantBlock extends Block implements Poly
         }
     }
 
-    private static class VirtualBlock extends SimplePolymerBiomePlantBlock implements FactoryBlock, PolymerTexturedBlock {
+    private static class VirtualBlock extends SimplePolymerBushBlock implements FactoryBlock, PolymerTexturedBlock {
         private final BlockState state;
 
         public VirtualBlock(Properties settings) {

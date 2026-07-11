@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "minecraft:golden_carrot",
+    "d": "minecraft:diamond",
+    "g": "minecraft:golden_apple",
+    "r": {
+      "fabric:type": "fabric:components",
+      "base": "minecraft:potion",
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "minecraft:long_regeneration"
+        }
+      }
+    },
+    "w": "minecraft:wheat"
+  },
+  "pattern": [
+    " w ",
+    "grc",
+    " d "
+  ],
+  "result": {
+    "id": "demeter:miracle_potion"
+  }
+}

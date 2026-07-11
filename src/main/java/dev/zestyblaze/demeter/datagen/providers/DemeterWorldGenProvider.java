@@ -2,6 +2,7 @@ package dev.zestyblaze.demeter.datagen.providers;
 
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.registry.DemeterBlocks;
+import dev.zestyblaze.demeter.world.HerbBlockStateProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderGetter;
@@ -31,6 +32,9 @@ public class DemeterWorldGenProvider extends FabricDynamicRegistryProvider {
     public static final ResourceKey<ConfiguredFeature<?, ?>> BAMBOO_SHOOTS_PATCH_CF = createKey("bamboo_shoots");
     public static final ResourceKey<PlacedFeature> BAMBOO_SHOOTS_PATCH_PF = register("bamboo_shoots");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> HERB_PATCH_CF = createKey("herb_patch");
+    public static final ResourceKey<PlacedFeature> HERB_PATCH_PF = register("herb_patch");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAPLE_TREES_CF = createKey("maple_trees");
     public static final ResourceKey<PlacedFeature> MAPLE_TREES_PF = register("maple_trees");
 
@@ -41,13 +45,14 @@ public class DemeterWorldGenProvider extends FabricDynamicRegistryProvider {
     public static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         FeatureUtils.register(context, MAPLE_TREES_CF, Feature.TREE, createMaple().build());
         FeatureUtils.register(context, BAMBOO_SHOOTS_PATCH_CF, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(DemeterBlocks.BAMBOO_SHOOTS)));
+        FeatureUtils.register(context, HERB_PATCH_CF, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(HerbBlockStateProvider.INSTANCE));
     }
 
     public static void bootstrapPlacedFeatures(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> holderGetter = context.lookup(Registries.CONFIGURED_FEATURE);
 
         PlacementUtils.register(context, MAPLE_TREES_PF, holderGetter.getOrThrow(MAPLE_TREES_CF),
-                PlacementUtils.countExtra(1, 0.1f, 1),
+                PlacementUtils.countExtra(0, 0.05F, 1),
                 InSquarePlacement.spread(),
                 SurfaceWaterDepthFilter.forMaxDepth(0),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -55,12 +60,22 @@ public class DemeterWorldGenProvider extends FabricDynamicRegistryProvider {
                 PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
         );
 
-        PlacementUtils.register(context, BAMBOO_SHOOTS_PATCH_PF, holderGetter.getOrThrow(MAPLE_TREES_CF),
+        PlacementUtils.register(context, BAMBOO_SHOOTS_PATCH_PF, holderGetter.getOrThrow(BAMBOO_SHOOTS_PATCH_CF),
                 RarityFilter.onAverageOnceEvery(4),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP,
                 BiomeFilter.biome(),
-                CountPlacement.of(24),
+                CountPlacement.of(5),
+                RandomOffsetPlacement.ofTriangle(5, 3),
+                BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+        );
+
+        PlacementUtils.register(context, HERB_PATCH_PF, holderGetter.getOrThrow(HERB_PATCH_CF),
+                RarityFilter.onAverageOnceEvery(4),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome(),
+                CountPlacement.of(5),
                 RandomOffsetPlacement.ofTriangle(5, 3),
                 BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
         );

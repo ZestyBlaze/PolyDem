@@ -47,7 +47,7 @@ public class DemeterAdvancementsProvider extends FabricAdvancementProvider {
                 ).addCriterion("use", TriggerCriterion.of(DemeterTriggers.GUIDEBOOK))
                 .save(consumer, "demeter:guidebook");
 
-        AdvancementHolder obtainMapleSyrup = Advancement.Builder.advancement()
+        Advancement.Builder.advancement()
                 .parent(root)
                 .display(
                         DemeterItems.MAPLE_SYRUP_BOTTLE,

@@ -15,9 +15,14 @@ public class DemeterBlockLootProvider extends FabricBlockLootSubProvider {
 
     @Override
     public void generate() {
-        dropSelf(DemeterBlocks.MAPLE_LOG);
-        dropSelf(DemeterBlocks.STRIPPED_MAPLE_LOG);
-        dropSelf(DemeterBlocks.MAPLE_PLANKS);
+        dropSelf(DemeterBlocks.BAMBOO_SHOOTS);
+        dropSelf(DemeterBlocks.BRICK_GRILL);
+        dropSelf(DemeterBlocks.CHAMOMILE);
+        dropSelf(DemeterBlocks.LAVENDER);
         add(DemeterBlocks.MAPLE_LEAVES, createLeavesDrops(DemeterBlocks.MAPLE_LEAVES, Blocks.DIAMOND_BLOCK, NORMAL_LEAVES_SAPLING_CHANCES));
+        dropSelf(DemeterBlocks.MAPLE_LOG);
+        dropSelf(DemeterBlocks.MAPLE_PLANKS);
+        dropSelf(DemeterBlocks.MINT);
+        dropSelf(DemeterBlocks.STRIPPED_MAPLE_LOG);
     }
 }

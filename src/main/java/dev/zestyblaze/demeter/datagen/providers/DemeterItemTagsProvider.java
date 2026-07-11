@@ -23,6 +23,7 @@ public class DemeterItemTagsProvider extends FabricTagsProvider.ItemTagsProvider
         valueLookupBuilder(ConventionalItemTags.TOOLS).addTag(DemeterItemTags.ANIMAL_BRUSH_TOOL);
 
         valueLookupBuilder(DemeterItemTags.ANIMAL_BRUSH_TOOL).add(DemeterItems.ANIMAL_BRUSH);
+        valueLookupBuilder(DemeterItemTags.GRILL_STARTERS).add(Items.FLINT_AND_STEEL, Items.FIRE_CHARGE);
         valueLookupBuilder(DemeterItemTags.MAPLE_LOGS).add(DemeterItems.MAPLE_LOG, DemeterItems.STRIPPED_MAPLE_LOG);
         valueLookupBuilder(DemeterItemTags.QUALITY_PRODUCTS).forceAddTag(ItemTags.WOOL)
                 .add(Items.APPLE, Items.WHEAT, Items.CARROT, Items.POTATO, Items.MELON_SLICE, Items.PUMPKIN,

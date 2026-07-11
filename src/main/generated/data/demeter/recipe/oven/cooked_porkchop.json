@@ -1,0 +1,10 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "ingredients": [
+    "minecraft:porkchop"
+  ],
+  "result": {
+    "id": "minecraft:cooked_porkchop"
+  }
+}

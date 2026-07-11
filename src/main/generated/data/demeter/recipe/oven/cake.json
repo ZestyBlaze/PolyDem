@@ -1,0 +1,13 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "ingredients": [
+    "minecraft:milk_bucket",
+    "#c:eggs",
+    "minecraft:sugar",
+    "demeter:flour"
+  ],
+  "result": {
+    "id": "minecraft:cake"
+  }
+}
