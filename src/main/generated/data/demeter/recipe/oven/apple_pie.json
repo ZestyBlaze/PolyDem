@@ -1,0 +1,14 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "dish": "demeter:plate",
+  "ingredients": [
+    "minecraft:apple",
+    "#c:eggs",
+    "demeter:butter",
+    "demeter:flour"
+  ],
+  "result": {
+    "id": "demeter:apple_pie"
+  }
+}

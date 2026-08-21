@@ -19,6 +19,14 @@ repositories {
 		name = "Terraformers"
 		url = "https://maven.terraformersmc.com/"
 	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven/"
+	}
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/demeter.classtweaker")
 }
 
 fabricApi {
@@ -32,21 +40,28 @@ dependencies {
 	minecraft ("com.mojang:minecraft:${project.minecraft_version}")
 	implementation ("net.fabricmc:fabric-loader:${project.loader_version}")
 	implementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+
 	implementation ("eu.pb4:polymer-core:${project.polymer_version}+${project.minecraft_version}")
 	implementation ("eu.pb4:polymer-blocks:${project.polymer_version}+${project.minecraft_version}")
 	implementation ("eu.pb4:polymer-resource-pack:${project.polymer_version}+${project.minecraft_version}")
 	implementation ("eu.pb4:polymer-virtual-entity:${project.polymer_version}+${project.minecraft_version}")
-	implementation ("eu.pb4:booklet:${project.booklet_version}+${project.minecraft_major_version}")
+	implementation ("eu.pb4:booklet:${project.booklet_version}+${project.minecraft_version}")
 	implementation ("eu.pb4:polymer-resource-pack-extras:${project.polymer_version}+${project.minecraft_version}")
-	implementation ("me.fzzyhmstrs:fzzy_config:${project.config_version}+${project.minecraft_major_version}")
-	implementation include("eu.pb4:factorytools:${factorytools_version}+${project.minecraft_major_version}")
+
+	implementation ("me.fzzyhmstrs:fzzy_config:${project.config_version}+${project.minecraft_version}")
+
+	implementation include("eu.pb4:factorytools:${factorytools_version}+${project.minecraft_version}")
+	implementation include("eu.pb4:sgui:2.1.0+26.2")
+
+	compileOnly ("maven.modrinth:polydex:${project.polydex_version}")
 }
 
 processResources {
-	inputs.property "version", project.version
+	def version = project.version
+	inputs.property "version", version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": inputs.properties.version
+		expand "version": version
 	}
 }
 
@@ -62,10 +77,11 @@ java {
 }
 
 jar {
-	inputs.property "projectName", project.name
+	def projectName = project.name
+	inputs.property "projectName", projectName
 
 	from("LICENSE") {
-		rename { "${it}_${project.name}"}
+		rename { "${it}_$projectName"}
 	}
 }
 

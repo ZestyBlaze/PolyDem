@@ -1,0 +1,10 @@
+// 26.2	-999999999-01-01T00:00:00	Demeter/Block Loot Tables
+87a213fdb754fdda057ffb60719568cc00edbd3c data/demeter/loot_table/blocks/bamboo_shoots.json
+01e4a9ae7c6ee424a5a18ce0aac78116434db59b data/demeter/loot_table/blocks/brick_grill.json
+9e43b0fea36a1149bf892cd6fb2bd6b011f33298 data/demeter/loot_table/blocks/chamomile.json
+d9411ebcac7541be0a90cc63038bd7cc972d6c88 data/demeter/loot_table/blocks/lavender.json
+b3d9df7118c9874611134a69d2d386b9e891c6d2 data/demeter/loot_table/blocks/maple_leaves.json
+bf5039b5aa5a2ede1b4577464f65b1a742a4ae27 data/demeter/loot_table/blocks/maple_log.json
+27d415427142f6b430ee6a451e83cfa779f874ad data/demeter/loot_table/blocks/maple_planks.json
+6c85c55e3460af8e87f499b50a2a9d1e3863ea90 data/demeter/loot_table/blocks/mint.json
+fb4e9218294f050caa70979901c4c0333ef356bf data/demeter/loot_table/blocks/stripped_maple_log.json

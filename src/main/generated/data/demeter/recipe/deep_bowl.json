@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": "#minecraft:planks",
+    "S": "#minecraft:wooden_slabs"
+  },
+  "pattern": [
+    "P P",
+    "SSS"
+  ],
+  "result": {
+    "count": 6,
+    "id": "demeter:deep_bowl"
+  }
+}

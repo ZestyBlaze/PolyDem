@@ -2,6 +2,7 @@ package dev.zestyblaze.demeter.datagen.providers;
 
 import dev.zestyblaze.demeter.registry.DemeterBlocks;
 import dev.zestyblaze.demeter.registry.DemeterItems;
+import dev.zestyblaze.demeter.tags.DemeterItemTags;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -37,16 +38,41 @@ public class DemeterModelsProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerators itemModelGenerators) {
         itemModelGenerators.generateFlatItem(DemeterItems.ANIMAL_BRUSH, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.ANIMAL_TAG, ModelTemplates.FLAT_ITEM);
-        itemModelGenerators.generateFlatItem(DemeterItems.MAPLE_SYRUP_BOTTLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.MILK_BOTTLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.MIRACLE_POTION, ModelTemplates.FLAT_ITEM);
+
+        itemModelGenerators.generateFlatItem(DemeterItems.UNFIRED_MUG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.UNFIRED_PLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.MUG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.PLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.DEEP_BOWL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.GLASS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.JAM_JAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.PICKLING_JAR, ModelTemplates.FLAT_ITEM);
+
+        itemModelGenerators.generateFlatItem(DemeterItems.BUTTER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.COOKING_OIL, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.CURRY_POWDER, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.DUMPLING_POWDER, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.FLOUR, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.SALT, ModelTemplates.FLAT_ITEM);
-        itemModelGenerators.generateFlatItem(DemeterItems.COOKING_OIL, ModelTemplates.FLAT_ITEM);
-        itemModelGenerators.generateFlatItem(DemeterItems.RICEBALL, ModelTemplates.FLAT_ITEM);
+
+        itemModelGenerators.generateFlatItem(DemeterItems.APPLE_PIE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.APPLE_SOUFFLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.BAMBOO_RICE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.BUTTER_BISCUITS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.CHIRASHI_SUSHI, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(DemeterItems.CHOCOLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.CHOCOLATE_CAKE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.CHOCOLATE_COOKIES, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.CURRIED_RICE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.CURRY_NOODLES, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.CURRY_BREAD, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.MAPLE_SYRUP_BOTTLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DemeterItems.RICEBALL, ModelTemplates.FLAT_ITEM);
+
+        //itemModelGenerators.generateFlatItem(DemeterItems.CALENDER, ModelTemplates.FLAT_ITEM);
+
         itemModelGenerators.generateFlatItem(DemeterItems.TEXT_BOX, ModelTemplates.FLAT_ITEM);
     }
 

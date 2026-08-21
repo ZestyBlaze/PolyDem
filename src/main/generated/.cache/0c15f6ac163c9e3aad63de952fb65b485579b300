@@ -1,0 +1,12 @@
+// 26.2	-999999999-01-01T00:00:00	Demeter/Tags for minecraft:block
+136235f410600870d80fb2bb3209410dcb28b624 data/c/tags/block/stripped_logs.json
+f11f574db89b952f4b9275add15b4ecbe92b67ad data/demeter/tags/block/maple_logs.json
+796a959b6265e6cdbb0433009b01543558525cdf data/minecraft/tags/block/completes_find_tree_tutorial.json
+d742d01b1fa66c8ecc03d106fa006dc362dc2460 data/minecraft/tags/block/leaves.json
+6481636044874272d3f0fd7166c691b64ac36bc6 data/minecraft/tags/block/logs.json
+37bbc9188d1ed0463301f3cc9d39848445ede62a data/minecraft/tags/block/mineable/axe.json
+d742d01b1fa66c8ecc03d106fa006dc362dc2460 data/minecraft/tags/block/mineable/hoe.json
+64bac5656e1e05d65bd294e862545fc75d6eb505 data/minecraft/tags/block/mineable/pickaxe.json
+64bac5656e1e05d65bd294e862545fc75d6eb505 data/minecraft/tags/block/needs_stone_tool.json
+796a959b6265e6cdbb0433009b01543558525cdf data/minecraft/tags/block/overworld_natural_logs.json
+1434f4bd366f5b1ef9002139fdfe58bbdf7d820b data/minecraft/tags/block/planks.json

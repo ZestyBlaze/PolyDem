@@ -13,13 +13,16 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,9 +82,21 @@ public class DemeterRecipeProvider extends FabricRecipeProvider {
                         .pattern(" c ").pattern("bfb").pattern("bbb").unlockedBy("has_item", has(Items.SMOKER))
                         .save(output);
 
+                ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.UNFIRED_PLATE).define('C', Items.CLAY).pattern("CC").unlockedBy("has_furnace", has(Blocks.FURNACE)).save(output);
+                ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.UNFIRED_MUG).define('C', Items.CLAY).pattern("C").pattern("C").unlockedBy("has_furnace", has(Blocks.FURNACE)).save(output);
+                SimpleCookingRecipeBuilder.smelting(Ingredient.of(DemeterItems.UNFIRED_PLATE), RecipeCategory.FOOD, CookingBookCategory.MISC, DemeterItems.PLATE, 0.3F, 200).unlockedBy("has_furnace", has(Blocks.FURNACE)).save(output);
+                SimpleCookingRecipeBuilder.smelting(Ingredient.of(DemeterItems.UNFIRED_MUG), RecipeCategory.FOOD, CookingBookCategory.MISC, DemeterItems.MUG, 0.3F, 200).unlockedBy("has_furnace", has(Blocks.FURNACE)).save(output);
+                ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.DEEP_BOWL, 6).define('P', ItemTags.PLANKS).define('S', ItemTags.WOODEN_SLABS).pattern("P P").pattern("SSS").unlockedBy("has_planks", has(ItemTags.PLANKS)).save(output);
+                ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.GLASS, 6).define('G', ConventionalItemTags.GLASS_BLOCKS_COLORLESS).pattern("G G").pattern("G G").pattern(" G ").unlockedBy("has_glass", has(Blocks.GLASS)).save(output);
+                ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.JAM_JAR, 6).define('G', ConventionalItemTags.GLASS_BLOCKS_COLORLESS).define('S', ItemTags.WOODEN_SLABS).pattern("S").pattern("G").unlockedBy("has_glass", has(Blocks.GLASS)).save(output);
+                ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.PICKLING_JAR, 4).define('G', ConventionalItemTags.GLASS_BLOCKS_COLORLESS).define('S', ConventionalItemTags.IRON_NUGGETS).pattern("S").pattern("G").unlockedBy("has_glass", has(Blocks.GLASS)).save(output);
+
+                ovenRecipe(DemeterItems.APPLE_PIE, Ingredient.of(DemeterItems.PLATE), 100, Ingredient.of(Items.APPLE), Ingredient.of(items.getOrThrow(ConventionalItemTags.EGGS)), Ingredient.of(DemeterItems.BUTTER), Ingredient.of(DemeterItems.FLOUR));
                 ovenRecipe(Items.BAKED_POTATO, Ingredient.of(Items.POTATO));
-                ovenRecipe(Items.BREAD, Ingredient.of(items.getOrThrow(ConventionalItemTags.DOUGH_FOODS)));
+                ovenRecipe(Items.BREAD, Ingredient.of(DemeterItems.FLOUR));
+                ovenRecipe(DemeterItems.BUTTER_BISCUITS, Ingredient.of(DemeterItems.PLATE), 100, Ingredient.of(items.getOrThrow(ConventionalItemTags.EGGS)), Ingredient.of(DemeterItems.BUTTER), Ingredient.of(DemeterItems.FLOUR));
                 ovenRecipe(Items.CAKE, Ingredient.of(Items.MILK_BUCKET), Ingredient.of(items.getOrThrow(ConventionalItemTags.EGGS)), Ingredient.of(Items.SUGAR), Ingredient.of(DemeterItems.FLOUR));
+                ovenRecipe(DemeterItems.CHOCOLATE_CAKE, Ingredient.of(DemeterItems.PLATE),100, Ingredient.of(items.getOrThrow(ConventionalItemTags.EGGS)), Ingredient.of(DemeterItems.FLOUR), Ingredient.of(DemeterItems.BUTTER), Ingredient.of(DemeterItems.CHOCOLATE));
                 ovenRecipe(Items.COOKED_BEEF, Ingredient.of(Items.BEEF));
                 ovenRecipe(Items.COOKED_CHICKEN, Ingredient.of(Items.CHICKEN));
                 ovenRecipe(Items.COOKED_COD, Ingredient.of(Items.COD));
@@ -89,24 +104,33 @@ public class DemeterRecipeProvider extends FabricRecipeProvider {
                 ovenRecipe(Items.COOKED_PORKCHOP, Ingredient.of(Items.PORKCHOP));
                 ovenRecipe(Items.COOKED_RABBIT, Ingredient.of(Items.RABBIT));
                 ovenRecipe(Items.COOKED_SALMON, Ingredient.of(Items.SALMON));
-                ovenRecipe(Items.COOKIE, 4, Optional.empty(), 100, Ingredient.of(DemeterItems.FLOUR), Ingredient.of(DemeterItems.CHOCOLATE));
+                ovenRecipe(Items.COOKIE, 4, Ingredient.of(DemeterItems.FLOUR), Ingredient.of(DemeterItems.CHOCOLATE));
+                ovenRecipe(Items.DRIED_KELP, Ingredient.of(Items.KELP));
                 ovenRecipe(Items.POPPED_CHORUS_FRUIT, Ingredient.of(Items.CHORUS_FRUIT));
             }
 
             public void ovenRecipe(ItemLike output, Ingredient... ingredients) {
-                oven(output, 1, Optional.empty(), 100, ingredients).save(this.output, createCookingString(output.asItem().getDescriptionId().split("\\.")[2]));
+                oven(output, 1, null, 100, ingredients).save(this.output, createCookingString(output.asItem().getDescriptionId().split("\\.")[2]));
             }
 
-            public void ovenRecipe(ItemLike output, Optional<Ingredient> dish, int cookTime, Ingredient... ingredients) {
+            public void ovenRecipe(ItemLike output, Ingredient dish, int cookTime, Ingredient... ingredients) {
                 oven(output, 1, dish, cookTime, ingredients).save(this.output, createCookingString(output.asItem().getDescriptionId().split("\\.")[2]));
             }
 
-            public void ovenRecipe(ItemLike output, int quantity, Optional<Ingredient> dish, int cookTime, Ingredient... ingredients) {
+            public void ovenRecipe(ItemLike output, int quantity, Ingredient dish, int cookTime, Ingredient... ingredients) {
                 oven(output, quantity, dish, cookTime, ingredients).save(this.output, createCookingString(output.asItem().getDescriptionId().split("\\.")[2]));
             }
 
-            public static SpecialRecipeBuilder oven(ItemLike result, int quantity, Optional<Ingredient> dish, int cookTime, Ingredient... ingredients) {
-                return new SpecialRecipeBuilder(() -> new CookingRecipe(new ItemStackTemplate(result.asItem(), quantity), List.of(ingredients), dish, cookTime));
+            public void ovenRecipe(ItemLike output, int quantity, Ingredient... ingredients) {
+                oven(output, quantity, null, 100, ingredients).save(this.output, createCookingString(output.asItem().getDescriptionId().split("\\.")[2]));
+            }
+
+            public static SpecialRecipeBuilder oven(ItemLike result, int quantity, Ingredient dish, int cookTime, Ingredient... ingredients) {
+                return new SpecialRecipeBuilder(() -> new CookingRecipe(new ItemStackTemplate(result.asItem(), quantity),
+                        List.of(ingredients),
+                        dish == null ? Optional.empty() : Optional.of(dish),
+                        cookTime)
+                );
             }
 
             private String createCookingString(String id) {

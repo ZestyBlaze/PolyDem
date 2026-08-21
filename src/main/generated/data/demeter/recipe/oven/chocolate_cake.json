@@ -1,0 +1,14 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "dish": "demeter:plate",
+  "ingredients": [
+    "#c:eggs",
+    "demeter:flour",
+    "demeter:butter",
+    "demeter:chocolate"
+  ],
+  "result": {
+    "id": "demeter:chocolate_cake"
+  }
+}

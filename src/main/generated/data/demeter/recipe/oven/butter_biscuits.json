@@ -1,0 +1,13 @@
+{
+  "type": "demeter:oven",
+  "cook_time": 100,
+  "dish": "demeter:plate",
+  "ingredients": [
+    "#c:eggs",
+    "demeter:butter",
+    "demeter:flour"
+  ],
+  "result": {
+    "id": "demeter:butter_biscuits"
+  }
+}

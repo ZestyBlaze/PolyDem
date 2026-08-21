@@ -44,18 +44,16 @@ public class BrickGrillBlockEntity extends BlockEntity implements BlockEntityExt
         if (state.getValue(BrickGrillBlock.LIT)) {
             tile.cookingTime++;
 
-            if (tile.cookingTime >= 20) {
-                CookingRecipeInput inventory = new CookingRecipeInput(tile.items);
-                Optional<RecipeHolder<CookingRecipe>> cookingRecipeRecipeHolder = tile.quickCheck.getRecipeFor(inventory, (ServerLevel) level);
+            CookingRecipeInput inventory = new CookingRecipeInput(tile.items);
+            Optional<RecipeHolder<CookingRecipe>> cookingRecipeRecipeHolder = tile.quickCheck.getRecipeFor(inventory, (ServerLevel) level);
 
-                if (cookingRecipeRecipeHolder.isPresent()) {
-                    if (cookingRecipeRecipeHolder.get().value().dish().isPresent()) {
-                        tile.requiredDish = cookingRecipeRecipeHolder.get().value().dish().get();
-                    }
-
-                    tile.setItem(0, cookingRecipeRecipeHolder.get().value().assemble(inventory), true);
-                    tile.clearItems();
+            if (cookingRecipeRecipeHolder.isPresent() && tile.cookingTime >= cookingRecipeRecipeHolder.get().value().cookTime()) {
+                if (cookingRecipeRecipeHolder.get().value().dish().isPresent()) {
+                    tile.requiredDish = cookingRecipeRecipeHolder.get().value().dish().get();
                 }
+
+                tile.setItem(0, cookingRecipeRecipeHolder.get().value().assemble(inventory), true);
+                tile.clearItems();
                 tile.cookingTime = 0;
                 level.setBlockAndUpdate(pos, state.setValue(BrickGrillBlock.LIT, false));
             }

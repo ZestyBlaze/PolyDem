@@ -2,6 +2,7 @@ package dev.zestyblaze.demeter;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import dev.zestyblaze.demeter.compat.PolydexCompat;
 import dev.zestyblaze.demeter.config.DemeterConfig;
 import dev.zestyblaze.demeter.datagen.providers.DemeterWorldGenProvider;
 import dev.zestyblaze.demeter.event.BlockEvents;
@@ -122,6 +123,7 @@ public class Demeter implements ModInitializer {
 				DemeterWorldGenProvider.MAPLE_TREES_PF
 		);
 
+		PolydexCompat.init();
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
 	}
 

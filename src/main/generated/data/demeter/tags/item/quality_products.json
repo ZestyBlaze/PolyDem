@@ -1,6 +1,9 @@
 {
   "values": [
-    "#minecraft:wool",
+    {
+      "id": "#minecraft:wool",
+      "required": false
+    },
     "minecraft:apple",
     "minecraft:wheat",
     "minecraft:carrot",

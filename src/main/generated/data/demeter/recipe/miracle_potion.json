@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "c": "minecraft:golden_carrot",
     "d": "minecraft:diamond",

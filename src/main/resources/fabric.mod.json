@@ -26,9 +26,10 @@
 	"mixins": [
 		"demeter.mixins.json"
 	],
+	"accessWidener": "demeter.classtweaker",
 	"depends": {
 		"fabricloader": ">=0.18.6",
-		"minecraft": "~26.1.1",
+		"minecraft": "~26.2",
 		"java": ">=25",
 		"fabric-api": "*",
 		"polymer-core": ">=0.16.4",

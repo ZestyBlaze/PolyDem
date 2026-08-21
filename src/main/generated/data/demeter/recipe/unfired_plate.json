@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "minecraft:clay"
+  },
+  "pattern": [
+    "CC"
+  ],
+  "result": {
+    "id": "demeter:unfired_plate"
+  }
+}

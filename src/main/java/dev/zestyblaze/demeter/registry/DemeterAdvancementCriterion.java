@@ -2,9 +2,9 @@ package dev.zestyblaze.demeter.registry;
 
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.advancement.TriggerCriterion;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriterionTrigger;
 
 /**
  * A class taken from FactoryTools for usage here, licensed under GPL 3.0

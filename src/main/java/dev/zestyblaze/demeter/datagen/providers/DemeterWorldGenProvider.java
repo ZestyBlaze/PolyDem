@@ -93,12 +93,14 @@ public class DemeterWorldGenProvider extends FabricDynamicRegistryProvider {
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createStraightBlobTree(Block logBlock, Block leavesBlock, int baseHeight, int heightRandA, int heightRandB, int radius) {
-        return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(logBlock),
+        return new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(logBlock),
                 new StraightTrunkPlacer(baseHeight, heightRandA, heightRandB),
                 BlockStateProvider.simple(leavesBlock),
                 new BlobFoliagePlacer(ConstantInt.of(radius),
                         ConstantInt.of(0), 3),
-                new TwoLayersFeatureSize(1, 0, 1)
+                new TwoLayersFeatureSize(1, 0, 1),
+                BlockStateProvider.simple(Blocks.DIRT)
         );
     }
 
