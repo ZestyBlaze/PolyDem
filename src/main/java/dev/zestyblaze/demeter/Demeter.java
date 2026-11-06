@@ -1,5 +1,6 @@
 package dev.zestyblaze.demeter;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import dev.zestyblaze.demeter.compat.PolydexCompat;
@@ -10,31 +11,39 @@ import dev.zestyblaze.demeter.event.EntityEvents;
 import dev.zestyblaze.demeter.event.LevelEvents;
 import dev.zestyblaze.demeter.managers.DemeterAnimalNamesManager;
 import dev.zestyblaze.demeter.managers.DemeterAnimalStatsManager;
+import dev.zestyblaze.demeter.managers.DemeterCropSeasonManager;
 import dev.zestyblaze.demeter.managers.DemeterCropStatsManager;
 import dev.zestyblaze.demeter.registry.*;
 import dev.zestyblaze.demeter.tags.DemeterBiomeTags;
 import dev.zestyblaze.demeter.util.NewDayCallback;
 import dev.zestyblaze.demeter.util.QualityUtil;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
+import eu.pb4.sidebars.api.Sidebar;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.resource.v1.DataResourceLoader;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.BlockTransformer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
@@ -53,6 +62,8 @@ public class Demeter implements ModInitializer {
 
 	public static DemeterConfig config = ConfigApiJava.registerAndLoadConfig(DemeterConfig::new);
 
+	public static final Sidebar SEASON_BOSSBAR = new Sidebar(Sidebar.Priority.OVERRIDE);
+
 	@Override
 	public void onInitialize() {
 		//Inits
@@ -60,7 +71,6 @@ public class Demeter implements ModInitializer {
 		DemeterAttachments.init();
 		DemeterBlockEntities.init();
 		DemeterBlocks.init();
-		DemeterBlockStateProviders.init();
 		DemeterComponents.init();
 		DemeterConsumables.init();
 		DemeterCreativeModeTabs.init();
@@ -73,12 +83,43 @@ public class Demeter implements ModInitializer {
 		EntityEvents.init();
 		LevelEvents.init();
 
-		//Run Custom Events
-		ServerTickEvents.END_LEVEL_TICK.register(serverLevel -> {
-			if (serverLevel.getOverworldClockTime() % 24000L == 1) {
-				NewDayCallback.EVENT.invoker().onNewDay(serverLevel);
-			}
+		BlockTransformerHelper.registerAxe(new BlockTransformer(
+				ImmutableList.<BlockTransformer.BlockTransformData>builder().add(
+						BlockTransformer.BlockTransformData.builder(
+								RuleBasedStateProvider.ifTrueThenProvide(
+										BlockPredicate.matchesBlocks(DemeterBlocks.MAPLE_LOG),
+										new CopyPropertiesProvider(DemeterBlocks.STRIPPED_MAPLE_LOG)
+								)
+						).build()
+				).build()
+		));
+
+		BiomeModifications.addFeature(
+				doubleTag(ConventionalBiomeTags.IS_JUNGLE, ConventionalBiomeTags.IS_HOT),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				DemeterWorldGenProvider.BAMBOO_SHOOTS_PF
+		);
+		BiomeModifications.addFeature(
+				herbPred(),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				DemeterWorldGenProvider.HERB_PATCH_PF
+		);
+		BiomeModifications.addFeature(
+				BiomeSelectors.tag(DemeterBiomeTags.HAS_MAPLE_TREES),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				DemeterWorldGenProvider.MAPLE_TREES_PF
+		);
+
+		DataResourceLoader.get().registerReloadListener(createId("animal_data"), new DemeterAnimalStatsManager());
+		DataResourceLoader.get().registerReloadListener(createId("animal_names"), new DemeterAnimalNamesManager());
+		DataResourceLoader.get().registerReloadListener(createId("crop_data"), new DemeterCropStatsManager());
+		DataResourceLoader.get().registerReloadListener(createId("crop_seasons"), new DemeterCropSeasonManager());
+
+		DefaultItemComponentEvents.MODIFY.register(context -> {
+			context.modify(Items.SHEARS, builder -> builder.set(DataComponents.ENCHANTABLE, new Enchantable(10)));
 		});
+
+		ItemComponentTooltipProviderRegistry.addFirst(DemeterComponents.QUALITY);
 
 		LootTableEvents.MODIFY_DROPS.register((holder, context, drops) -> {
 			if (context.hasParameter(LootContextParams.THIS_ENTITY)) {
@@ -92,39 +133,19 @@ public class Demeter implements ModInitializer {
 						registryAccess.getOrThrow(DemeterEnchantments.BARBER), List.of(0.0f, 1.0f));
 
 				if (condition.test(context)) {
-                    drops.addAll(List.copyOf(drops));
+					drops.addAll(List.copyOf(drops));
 				}
 			}
 		});
 
-		ItemComponentTooltipProviderRegistry.addFirst(DemeterComponents.QUALITY);
-
-		DataResourceLoader.get().registerReloadListener(createId("animal_data"), DemeterAnimalStatsManager::new);
-		DataResourceLoader.get().registerReloadListener(createId("animal_names"), new DemeterAnimalNamesManager());
-		DataResourceLoader.get().registerReloadListener(createId("crop_data"), DemeterCropStatsManager::new);
-
-		DefaultItemComponentEvents.MODIFY.register(context -> {
-			context.modify(Items.SHEARS, builder -> builder.set(DataComponents.ENCHANTABLE, new Enchantable(10)));
-		});
-
-		BiomeModifications.addFeature(
-				doubleTag(ConventionalBiomeTags.IS_JUNGLE, ConventionalBiomeTags.IS_HOT),
-				GenerationStep.Decoration.VEGETAL_DECORATION,
-				DemeterWorldGenProvider.BAMBOO_SHOOTS_PATCH_PF
-		);
-		BiomeModifications.addFeature(
-				herbPred(),
-				GenerationStep.Decoration.VEGETAL_DECORATION,
-				DemeterWorldGenProvider.HERB_PATCH_PF
-		);
-		BiomeModifications.addFeature(
-				BiomeSelectors.tag(DemeterBiomeTags.HAS_MAPLE_TREES),
-				GenerationStep.Decoration.VEGETAL_DECORATION,
-				DemeterWorldGenProvider.MAPLE_TREES_PF
-		);
-
 		PolydexCompat.init();
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
+
+		ServerTickEvents.END_LEVEL_TICK.register(serverLevel -> {
+			if (serverLevel.dimension() == Level.OVERWORLD && serverLevel.getOverworldClockTime() % 24000L == 1) {
+				NewDayCallback.EVENT.invoker().onNewDay(serverLevel);
+			}
+		});
 	}
 
 	public static Identifier createId(String id) {

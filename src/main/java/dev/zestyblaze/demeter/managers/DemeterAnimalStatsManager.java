@@ -2,8 +2,8 @@ package dev.zestyblaze.demeter.managers;
 
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.data.AnimalData;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -18,8 +18,8 @@ import java.util.Map;
 public class DemeterAnimalStatsManager extends SimpleJsonResourceReloadListener<AnimalData> {
     private static final Map<EntityType<?>, AnimalData> newMap = new HashMap<>();
 
-    public DemeterAnimalStatsManager(HolderLookup.Provider registries) {
-        super(registries, AnimalData.CODEC, ResourceKey.createRegistryKey(Demeter.createId("animal_stats")));
+    public DemeterAnimalStatsManager() {
+        super(AnimalData.CODEC, FileToIdConverter.registry(ResourceKey.createRegistryKey(Demeter.createId("animal_stats"))));
     }
 
     @Override

@@ -1,0 +1,16 @@
+{
+  "type": "demeter:potion_transform",
+  "input": {
+    "fabric:type": "fabric:components",
+    "base": "minecraft:potion",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:regeneration"
+      }
+    }
+  },
+  "output": {
+    "id": "demeter:miracle_potion"
+  },
+  "reagent": "minecraft:rabbit_foot"
+}

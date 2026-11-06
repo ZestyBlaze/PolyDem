@@ -1,7 +1,7 @@
-// 26.2	-999999999-01-01T00:00:00	Demeter/Demeter Worldgen
-640852142e087ff324d84b2c46b447e7184de336 data/demeter/worldgen/configured_feature/bamboo_shoots.json
-c5bfbf76c3fb3136966c964bc6acf36dfd90f8cc data/demeter/worldgen/configured_feature/herb_patch.json
-2d2ed6dd5ee1a66c6a20cc7d3ea5e454a02c4913 data/demeter/worldgen/configured_feature/maple_trees.json
-770c21c81f2fb3d74bbcfd58a902fd7e420e9175 data/demeter/worldgen/placed_feature/bamboo_shoots.json
-d71f11e12f83b4db76db9bb88e800852377494d1 data/demeter/worldgen/placed_feature/herb_patch.json
-82af0c76433147e3f6818f1177bafd7690f7195a data/demeter/worldgen/placed_feature/maple_trees.json
+// 26.3	-999999999-01-01T00:00:00	Demeter/Demeter Worldgen
+586de8ee65903b34c99d4b3e1f02784a8938a59f data/demeter/worldgen/feature/bamboo_shoots.json
+714a6566ee356a25cb818e1a3170590e59f6b866 data/demeter/worldgen/feature/herb_patch.json
+6f781f83a2fce2fea3b55193add963cd6de80df3 data/demeter/worldgen/feature/maple_trees.json
+dc3298c660a805f938ad7f6eb9253735f3732c06 data/demeter/worldgen/placed_feature/bamboo_shoots.json
+755067a95e0a0709b7e0a3254697c6050f6c89fc data/demeter/worldgen/placed_feature/herb_patch.json
+aa4e5e5c4832fa968c687b2f8db4bdfaad5702ba data/demeter/worldgen/placed_feature/maple_trees.json

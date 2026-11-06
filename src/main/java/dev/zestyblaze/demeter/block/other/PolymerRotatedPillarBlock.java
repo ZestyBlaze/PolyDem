@@ -2,7 +2,6 @@ package dev.zestyblaze.demeter.block.other;
 
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.mixin.PropertiesAccessor;
-import dev.zestyblaze.demeter.registry.DemeterBlocks;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
@@ -15,16 +14,9 @@ import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 import org.joml.Vector3f;
 import org.jspecify.annotations.Nullable;
 
@@ -57,18 +49,6 @@ public class PolymerRotatedPillarBlock extends RotatedPillarBlock implements Fac
                 || !Demeter.config.miscConfig.useFullTexturedBlocks.get()) {
             useFullBlock = false;
         }
-    }
-    @Override
-    protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!level.isClientSide()) {
-            if (itemStack.is(ItemTags.AXES)) {
-                if (state.is(DemeterBlocks.MAPLE_LOG)) {
-                    level.setBlockAndUpdate(pos, DemeterBlocks.STRIPPED_MAPLE_LOG.defaultBlockState().setValue(AXIS, state.getValue(AXIS)));
-                    return InteractionResult.SUCCESS_SERVER;
-                }
-            }
-        }
-        return InteractionResult.PASS;
     }
 
     @Override

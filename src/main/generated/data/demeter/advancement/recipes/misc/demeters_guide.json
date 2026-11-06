@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:demeters_guide"
+        "recipes": "demeter:demeters_guide"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

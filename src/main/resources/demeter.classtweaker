@@ -1,2 +1,6 @@
 classTweaker  v1  official
+accessible class net/minecraft/world/clock/ServerClockManager$ClockInstance
+accessible field net/minecraft/world/item/crafting/BrewingRecipe input Lnet/minecraft/world/item/crafting/PotionIngredient;
+accessible field net/minecraft/world/item/crafting/BrewingRecipe reagent Lnet/minecraft/world/item/crafting/PotionIngredient;
+accessible field net/minecraft/world/item/crafting/BrewingRecipe output Lnet/minecraft/world/item/ItemStackTemplate;
 accessible method net/minecraft/advancements/triggers/CriteriaTriggers register (Ljava/lang/String;Lnet/minecraft/advancements/triggers/CriterionTrigger;)Lnet/minecraft/advancements/triggers/CriterionTrigger;

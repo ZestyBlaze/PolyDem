@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:animal_tag"
+        "recipes": "demeter:animal_tag"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

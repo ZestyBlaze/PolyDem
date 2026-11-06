@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "demeter:mint",
+        "weight": 1
+      },
+      {
+        "data": "demeter:chamomile",
+        "weight": 1
+      },
+      {
+        "data": "demeter:lavender",
+        "weight": 1
+      }
+    ]
+  }
+}

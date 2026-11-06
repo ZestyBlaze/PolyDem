@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("deprecation")
 public class DemeterBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
     public DemeterBlockTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
         super(output, registryLookupFuture);

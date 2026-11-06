@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:maple_planks"
+        "recipes": "demeter:maple_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

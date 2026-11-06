@@ -1,7 +1,6 @@
 package dev.zestyblaze.demeter.block;
 
 import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.MapCodec;
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.block.entity.BrickGrillBlockEntity;
 import dev.zestyblaze.demeter.registry.DemeterBlockEntities;
@@ -20,9 +19,11 @@ import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Display;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -108,11 +109,6 @@ public class BrickGrillBlock extends BaseEntityBlock implements FactoryBlock, Po
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return null;
-    }
-
-    @Override
     protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hitResult) {
         if (level instanceof ServerLevel serverLevel && !itemStack.isEmpty()) {
@@ -158,7 +154,7 @@ public class BrickGrillBlock extends BaseEntityBlock implements FactoryBlock, Po
                         if (!stack.isEmpty()) {
                             grillEntity.setItem(i, ItemStack.EMPTY, false);
                             if (!player.addItem(stack)) {
-                                player.drop(stack, true);
+                                player.drop(stack, true, Prediction.SERVER_ONLY);
                             }
                             grillEntity.setChanged();
                             return InteractionResult.SUCCESS_SERVER;
@@ -210,6 +206,11 @@ public class BrickGrillBlock extends BaseEntityBlock implements FactoryBlock, Po
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, LIT);
+    }
+
+    @Override
+    public void stepOn(Level level, BlockPos pos, BlockState onState, Entity entity) {
+        entity.hurtServer((ServerLevel) level, level.damageSources().inFire(), 1.0f);
     }
 
     @Override

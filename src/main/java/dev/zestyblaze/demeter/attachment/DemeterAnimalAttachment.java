@@ -3,6 +3,7 @@ package dev.zestyblaze.demeter.attachment;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.zestyblaze.demeter.util.AnimalSexes;
+import net.minecraft.world.entity.LivingEntity;
 
 public class DemeterAnimalAttachment {
     public static final Codec<DemeterAnimalAttachment> CODEC = RecordCodecBuilder.create(func -> func.group(
@@ -32,5 +33,9 @@ public class DemeterAnimalAttachment {
 
     public void alterLove(int amount) {
         this.love = Math.clamp(this.love + amount, 0, 100);
+    }
+
+    public void onNewDay(LivingEntity self) {
+
     }
 }

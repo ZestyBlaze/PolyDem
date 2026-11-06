@@ -1,2 +1,19 @@
-// 26.2	-999999999-01-01T00:00:00	Demeter/Demeter AnimalData
-0313323f2489261f538dc3515eb423cb397b25e5 data/minecraft/demeter/animal_data/cow.json
+// 26.3	-999999999-01-01T00:00:00	Demeter/Demeter AnimalData
+85a3a1a05bc2e398c001aaeaa4faf3efed679d2f data/minecraft/demeter/animal_data/camel.json
+f81f8a84ea0cf77241c1d8047284c453699294fb data/minecraft/demeter/animal_data/cat.json
+f557209912dfb96a04fa1677b78fdb9f955a806e data/minecraft/demeter/animal_data/cow.json
+851129a13a19c43e74a426ebb7d3cc239528023d data/minecraft/demeter/animal_data/donkey.json
+a0eb584521421b9ba5b7080dd425600df2b83051 data/minecraft/demeter/animal_data/fox.json
+dd9438d7281446303a9eda3cf92d5be0e7cef6e9 data/minecraft/demeter/animal_data/goat.json
+851129a13a19c43e74a426ebb7d3cc239528023d data/minecraft/demeter/animal_data/horse.json
+78be6e25a8f493d9b75b32da137a577b142faac5 data/minecraft/demeter/animal_data/llama.json
+a5eca103af7e76e3d49cbc0cb6e9ec83e6a1b32a data/minecraft/demeter/animal_data/mooshroom.json
+851129a13a19c43e74a426ebb7d3cc239528023d data/minecraft/demeter/animal_data/mule.json
+d738709edcd50d3514e68f875cc7c476b99476ea data/minecraft/demeter/animal_data/ocelot.json
+cf4c9acbb2d0642da459bd4435a9580876d4055b data/minecraft/demeter/animal_data/panda.json
+4d5aac0583b0581c1766f18effabdc3e04f122bd data/minecraft/demeter/animal_data/parrot.json
+9c0796d4ff25c238a2564a398e12dbff2cae5795 data/minecraft/demeter/animal_data/pig.json
+14c4b71613361875b25bdf42001cabb085493d1f data/minecraft/demeter/animal_data/polar_bear.json
+a748118cd40595373805bdd7b5daf58c2d335571 data/minecraft/demeter/animal_data/rabbit.json
+6ae0fbe19d2e5894867a858648247049c6fd928c data/minecraft/demeter/animal_data/sheep.json
+b1f95eb617360c6f802e214fe23ee607b5eb9619 data/minecraft/demeter/animal_data/wolf.json

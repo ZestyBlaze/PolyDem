@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:jam_jar"
+        "recipes": "demeter:jam_jar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

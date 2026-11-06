@@ -2,7 +2,6 @@ package dev.zestyblaze.demeter.datagen.providers;
 
 import dev.zestyblaze.demeter.registry.DemeterBlocks;
 import dev.zestyblaze.demeter.registry.DemeterItems;
-import dev.zestyblaze.demeter.tags.DemeterItemTags;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;

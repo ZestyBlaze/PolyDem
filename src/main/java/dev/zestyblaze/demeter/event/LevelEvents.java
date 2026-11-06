@@ -3,17 +3,21 @@ package dev.zestyblaze.demeter.event;
 import com.google.common.collect.Lists;
 import dev.zestyblaze.demeter.Demeter;
 import dev.zestyblaze.demeter.attachment.CropsInChunkAttachment;
+import dev.zestyblaze.demeter.attachment.SeasonAttachment;
 import dev.zestyblaze.demeter.data.CropBlockData;
 import dev.zestyblaze.demeter.data.CropData;
+import dev.zestyblaze.demeter.managers.DemeterAnimalStatsManager;
 import dev.zestyblaze.demeter.managers.DemeterCropStatsManager;
-import dev.zestyblaze.demeter.mixin.ChunkMapInvoker;
 import dev.zestyblaze.demeter.registry.DemeterAttachments;
 import dev.zestyblaze.demeter.util.NewDayCallback;
+import dev.zestyblaze.demeter.util.TimeUtil;
+import dev.zestyblaze.demeter.world.season.Season;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -24,21 +28,44 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
+import net.minecraft.world.level.entity.EntityTypeTest;
 
 import java.util.List;
 import java.util.Map;
 
 public class LevelEvents {
     public static void init() {
-        newDay();
+        animalHandling();
+        backupSeasonHandling();
+        cropHandling();
     }
 
-    private static void newDay() {
+    private static void animalHandling() {
+        NewDayCallback.EVENT.register(level -> {
+            level.getEntities(EntityTypeTest.forClass(LivingEntity.class), livingEntity -> DemeterAnimalStatsManager.getData(livingEntity) != null)
+                    .forEach(livingEntity ->
+                            livingEntity.getAttachedOrCreate(DemeterAttachments.ANIMAL_DATA).onNewDay(livingEntity)
+            );
+        });
+    }
+
+    private static void backupSeasonHandling() {
+        NewDayCallback.EVENT.register(level -> {
+            Season expectedSeason = TimeUtil.getSeason(level.getOverworldClockTime());
+            Season season = level.getAttachedOrCreate(DemeterAttachments.SEASON).getSeason();
+
+            if (season != expectedSeason) {
+                level.setAttached(DemeterAttachments.SEASON, new SeasonAttachment(expectedSeason));
+            }
+        });
+    }
+
+    private static void cropHandling() {
         NewDayCallback.EVENT.register(level -> {
             ServerChunkCache chunkCache = level.getChunkSource();
             List<LevelChunk> list = Lists.newArrayListWithCapacity(chunkCache.getLoadedChunksCount());
 
-            ((ChunkMapInvoker)chunkCache.chunkMap).demeter$invokeForEachBlockTickingChunk(list::add);
+            chunkCache.chunkMap.forEachBlockTickingChunk(list::add);
 
             for (LevelChunk levelChunk : list) {
                 ChunkPos chunkPos = levelChunk.getPos();
@@ -93,10 +120,10 @@ public class LevelEvents {
                                         BlockState state = levelChunkSection.getBlockState(xOffset, yOffset, zOffset);
                                         mutableSectionWorldBlockPos.set(mutableSectionWorldOrigin).move(xOffset, yOffset, zOffset);
 
-                                        if (state.is(Blocks.FARMLAND)) {
+                                        if (state.is(Blocks.FARMLAND) && state.getBlock() instanceof FarmlandBlock farmlandBlock) {
                                             if (state.hasProperty(BlockStateProperties.MOISTURE) && state.getValue(BlockStateProperties.MOISTURE) != 7) {
                                                 if (level.getRandom().nextInt(100) < Demeter.config.farmlandConfig.morningDirtChance.get()) {
-                                                    FarmlandBlock.turnToDirt(null, state, level, mutableSectionWorldBlockPos);
+                                                    farmlandBlock.turnToBaseBlock(null, state, level, mutableSectionWorldBlockPos);
                                                 }
                                             } else if (state.getValue(BlockStateProperties.MOISTURE).equals(7)) {
                                                 level.setBlockAndUpdate(mutableSectionWorldBlockPos, state.setValue(BlockStateProperties.MOISTURE, 0));

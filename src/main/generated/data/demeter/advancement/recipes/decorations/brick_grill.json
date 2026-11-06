@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:brick_grill"
+        "recipes": "demeter:brick_grill"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -3,11 +3,12 @@ package dev.zestyblaze.demeter.advancement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.zestyblaze.demeter.registry.DemeterAdvancementCriterion;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ public class TriggerCriterion extends SimpleCriterionTrigger<TriggerCriterion.Co
         ).apply(instance, Condition::new));
 
         @Override
-        public Optional<ContextAwarePredicate> player() {
+        public Optional<Holder<LootItemCondition>> player() {
             return Optional.empty();
         }
     }

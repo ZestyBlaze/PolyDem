@@ -1,18 +1,23 @@
 package dev.zestyblaze.demeter.datagen.providers;
 
+import dev.zestyblaze.demeter.Demeter;
+import dev.zestyblaze.demeter.recipe.BrewingPotionTransformRecipe;
 import dev.zestyblaze.demeter.recipe.CookingRecipe;
 import dev.zestyblaze.demeter.registry.DemeterBlocks;
 import dev.zestyblaze.demeter.registry.DemeterItems;
 import dev.zestyblaze.demeter.tags.DemeterItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -21,6 +26,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
@@ -34,8 +40,8 @@ public class DemeterRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        return new RecipeProvider(registries, output) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+        return new RecipeProvider(recipes, advancements) {
             @Override
             public void buildRecipes() {
                 HolderLookup.RegistryLookup<Item> items = registries.lookupOrThrow(Registries.ITEM);
@@ -63,24 +69,28 @@ public class DemeterRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy("has_item", has(Items.PAPER))
                         .save(output);
 
-
-                ShapedRecipeBuilder.shaped(items, RecipeCategory.BREWING, DemeterItems.MIRACLE_POTION)
-                        .define('r', new ComponentsIngredient(Ingredient.of(Items.POTION),
-                                DataComponentPatch.builder().set(DataComponents.POTION_CONTENTS,
-                                                new PotionContents(Potions.LONG_REGENERATION))
-                                        .build()).toVanilla())
-                        .define('w', Items.WHEAT).define('c', Items.GOLDEN_CARROT)
-                        .define('g', Items.GOLDEN_APPLE).define('d', Items.DIAMOND)
-                        .pattern(" w ")
-                        .pattern("grc")
-                        .pattern(" d ")
-                        .unlockedBy("has_item", has(Items.GOLDEN_APPLE))
-                        .save(output);
-
                 ShapedRecipeBuilder.shaped(items, RecipeCategory.DECORATIONS, DemeterBlocks.BRICK_GRILL)
                         .define('f', Items.SMOKER).define('b', Items.BRICK).define('c', Items.COAL)
                         .pattern(" c ").pattern("bfb").pattern("bbb").unlockedBy("has_item", has(Items.SMOKER))
                         .save(output);
+
+                ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, DemeterItems.CALENDER)
+                        .requires(Items.PAPER).requires(Items.WHEAT).requires(Items.LEAF_LITTER)
+                        .unlockedBy("has_item", has(Items.PAPER))
+                                .save(output);
+
+                RecipeUnlockAdvancementBuilder advancementBuilder = new RecipeUnlockAdvancementBuilder();
+                advancementBuilder.unlockedBy("has_item", has(Items.RABBIT_FOOT));
+
+                this.output.accept(
+                        ResourceKey.create(Registries.RECIPE, Demeter.createId("brewing/miracle_potion")),
+                        new BrewingPotionTransformRecipe(
+                                DefaultCustomIngredients.components(Ingredient.of(Items.POTION), DataComponentPatch.builder().set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.REGENERATION)).build()),
+                                        Ingredient.of(Items.RABBIT_FOOT),
+                                        new ItemStackTemplate(DemeterItems.MIRACLE_POTION)
+                        ),
+                        null
+                );
 
                 ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.UNFIRED_PLATE).define('C', Items.CLAY).pattern("CC").unlockedBy("has_furnace", has(Blocks.FURNACE)).save(output);
                 ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, DemeterItems.UNFIRED_MUG).define('C', Items.CLAY).pattern("C").pattern("C").unlockedBy("has_furnace", has(Blocks.FURNACE)).save(output);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:deep_bowl"
+        "recipes": "demeter:deep_bowl"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

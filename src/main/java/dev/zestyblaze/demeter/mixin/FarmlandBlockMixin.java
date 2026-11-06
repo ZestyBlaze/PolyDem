@@ -28,7 +28,7 @@ public class FarmlandBlockMixin {
     }
 
     @Inject(
-            method = "turnToDirt",
+            method = "turnToBaseBlock",
             at = @At("TAIL")
     )
     private static void demeter$turnToDirt(Entity sourceEntity, BlockState state, Level level, BlockPos pos, CallbackInfo ci) {

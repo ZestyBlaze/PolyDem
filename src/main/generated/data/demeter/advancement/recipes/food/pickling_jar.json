@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:pickling_jar"
+        "recipes": "demeter:pickling_jar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

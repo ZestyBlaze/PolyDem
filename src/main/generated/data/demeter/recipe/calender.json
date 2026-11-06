@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:wheat",
+    "minecraft:leaf_litter"
+  ],
+  "result": {
+    "id": "demeter:calender"
+  }
+}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:milk_bottle"
+        "recipes": "demeter:milk_bottle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

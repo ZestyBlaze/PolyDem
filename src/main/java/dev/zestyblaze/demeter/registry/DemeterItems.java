@@ -5,15 +5,16 @@ import dev.zestyblaze.demeter.item.*;
 import eu.pb4.polymer.core.api.item.PolymerBlockItem;
 import eu.pb4.polymer.core.api.item.SimplePolymerItem;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.Compostable;
 import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public class DemeterItems {
     //Normal Misc Items
@@ -42,24 +43,55 @@ public class DemeterItems {
     public static final Item SALT = new SimplePolymerItem(new Item.Properties().setId(createKey("salt")));
 
     //Meals
-    public static final Item APPLE_PIE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.APPLE_PIE).setId(createKey("apple_pie")));
-    public static final Item APPLE_SOUFFLE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.APPLE_SOUFFLE).setId(createKey("apple_souffle")));
-    public static final Item BAMBOO_RICE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.BAMBOO_RICE).setId(createKey("bamboo_rice")));
-    public static final Item BUTTER_BISCUITS = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.BUTTER_BISCUITS).setId(createKey("butter_biscuits")));
-    public static final Item CHIRASHI_SUSHI = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHIRASHI_SUSHI).setId(createKey("chirashi_sushi")));
-    public static final Item CHOCOLATE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHOCOLATE).setId(createKey("chocolate")));
-    public static final Item CHOCOLATE_CAKE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHOCOLATE_CAKE).setId(createKey("chocolate_cake")));
-    public static final Item CHOCOLATE_COOKIES = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHOCOLATE_COOKIES).setId(createKey("chocolate_cookies")));
-    public static final Item CURRIED_RICE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CURRIED_RICE).setId(createKey("curried_rice")));
-    public static final Item CURRY_BREAD = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CURRY_BREAD).setId(createKey("curry_bread")));
-    public static final Item CURRY_NOODLES = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CURRY_NOODLES).setId(createKey("curry_noodles")));
-    public static final Item DINNER_ROLL = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.DINNER_ROLL).setId(createKey("dinner_roll")));
-    public static final Item DORIA = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.DORIA).setId(createKey("doria")));
-    public static final Item MAPLE_SYRUP_BOTTLE = new SimplePolymerItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).food(DemeterFoods.MAPLE_SYRUP_BOTTLE, Consumables.defaultDrink().build()).usingConvertsTo(Items.GLASS_BOTTLE).stacksTo(16).setId(createKey("maple_syrup_bottle")));
-    public static final Item RICEBALL = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.RICEBALL).setId(createKey("riceball")));
+    public static final Item APPLE_PIE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.APPLE_PIE)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("apple_pie")));
+    public static final Item APPLE_SOUFFLE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.APPLE_SOUFFLE)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("apple_souffle")));
+    public static final Item BAMBOO_RICE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.BAMBOO_RICE)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("bamboo_rice")));
+    public static final Item BUTTER_BISCUITS = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.BUTTER_BISCUITS)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("butter_biscuits")));
+    public static final Item CHIRASHI_SUSHI = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHIRASHI_SUSHI)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("chirashi_sushi")));
+    public static final Item CHOCOLATE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHOCOLATE)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("chocolate")));
+    public static final Item CHOCOLATE_CAKE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHOCOLATE_CAKE)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("chocolate_cake")));
+    public static final Item CHOCOLATE_COOKIES = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CHOCOLATE_COOKIES)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("chocolate_cookies")));
+    public static final Item CURRIED_RICE = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CURRIED_RICE)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("curried_rice")));
+    public static final Item CURRY_BREAD = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CURRY_BREAD)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("curry_bread")));
+    public static final Item CURRY_NOODLES = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.CURRY_NOODLES)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("curry_noodles")));
+    public static final Item DINNER_ROLL = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.DINNER_ROLL)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("dinner_roll")));
+    public static final Item DORIA = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.DORIA)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("doria")));
+    public static final Item MAPLE_SYRUP_BOTTLE = new SimplePolymerItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)
+            .food(DemeterFoods.MAPLE_SYRUP_BOTTLE, Consumables.defaultDrink().build()).usingConvertsTo(Items.GLASS_BOTTLE)
+            .stacksTo(16)
+            .setId(createKey("maple_syrup_bottle")));
+    public static final Item RICEBALL = new SimplePolymerItem(new Item.Properties().food(DemeterFoods.RICEBALL)
+            .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM))
+            .setId(createKey("riceball")));
 
     //Season Items
-    public static final Item CALENDER = new CalenderItem();
+    public static final Item CALENDER = new SimplePolymerItem(new Item.Properties().stacksTo(1).setId(createKey("calender")));
 
     //World Items
     public static final BlockItem MAPLE_LOG = new PolymerBlockItem(DemeterBlocks.MAPLE_LOG,
@@ -67,17 +99,27 @@ public class DemeterItems {
     public static final BlockItem STRIPPED_MAPLE_LOG = new PolymerBlockItem(DemeterBlocks.STRIPPED_MAPLE_LOG,
             new Item.Properties().useBlockDescriptionPrefix().setId(createKey("stripped_maple_log")));
     public static final BlockItem MAPLE_LEAVES = new PolymerBlockItem(DemeterBlocks.MAPLE_LEAVES,
-            new Item.Properties().useBlockDescriptionPrefix().setId(createKey("maple_leaves")));
+            new Item.Properties().useBlockDescriptionPrefix()
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW))
+                    .setId(createKey("maple_leaves")));
     public static final BlockItem MAPLE_PLANKS = new PolymerBlockItem(DemeterBlocks.MAPLE_PLANKS,
             new Item.Properties().useBlockDescriptionPrefix().setId(createKey("maple_planks")));
     public static final BlockItem BAMBOO_SHOOTS = new PolymerBlockItem(DemeterBlocks.BAMBOO_SHOOTS,
-            new Item.Properties().useBlockDescriptionPrefix().setId(createKey("bamboo_shoots")));
+            new Item.Properties().useBlockDescriptionPrefix()
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW))
+                    .setId(createKey("bamboo_shoots")));
     public static final BlockItem MINT = new PolymerBlockItem(DemeterBlocks.MINT,
-            new Item.Properties().useBlockDescriptionPrefix().setId(createKey("mint")));
+            new Item.Properties().useBlockDescriptionPrefix()
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW))
+                    .setId(createKey("mint")));
     public static final BlockItem CHAMOMILE = new PolymerBlockItem(DemeterBlocks.CHAMOMILE,
-            new Item.Properties().useBlockDescriptionPrefix().setId(createKey("chamomile")));
+            new Item.Properties().useBlockDescriptionPrefix()
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW))
+                    .setId(createKey("chamomile")));
     public static final BlockItem LAVENDER = new PolymerBlockItem(DemeterBlocks.LAVENDER,
-            new Item.Properties().useBlockDescriptionPrefix().setId(createKey("lavender")));
+            new Item.Properties().useBlockDescriptionPrefix()
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW))
+                    .setId(createKey("lavender")));
 
     //Misc Blocks
     public static final BlockItem BRICK_GRILL = new PolymerBlockItem(DemeterBlocks.BRICK_GRILL,

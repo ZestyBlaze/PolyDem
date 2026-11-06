@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:animal_brush"
+        "recipes": "demeter:animal_brush"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

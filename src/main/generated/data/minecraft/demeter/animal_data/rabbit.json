@@ -1,0 +1,8 @@
+{
+  "daysPregnant": 4,
+  "daysToGrowUp": 3,
+  "maxChildrenPerBirth": 1,
+  "maxLifespan": 12,
+  "minChildrenPerBirth": 1,
+  "minLifespan": 8
+}

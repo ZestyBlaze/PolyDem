@@ -17,6 +17,7 @@ public class DemeterDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(DemeterBlockLootProvider::new);
 		pack.addProvider(DemeterBlockTagsProvider::new);
 		pack.addProvider(DemeterCropDataProvider::new);
+		pack.addProvider(DemeterCropSeasonProvider::new);
 		pack.addProvider(DemeterEnchantmentProvider::new);
 		pack.addProvider(DemeterEnchantmentTagsProvider::new);
 		pack.addProvider(DemeterEnUsProvider::new);
@@ -28,8 +29,8 @@ public class DemeterDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, DemeterWorldGenProvider::bootstrapConfiguredFeatures);
 		registryBuilder.add(Registries.ENCHANTMENT, DemeterEnchantmentProvider::bootstrap);
-		registryBuilder.add(Registries.PLACED_FEATURE, DemeterWorldGenProvider::bootstrapPlacedFeatures);
+		registryBuilder.add(Registries.FEATURE, DemeterWorldGenProvider::bootstrapFeatures);
+		registryBuilder.add(Registries.PLACED_FEATURE, DemeterWorldGenProvider::bootstrapPlacements);
 	}
 }

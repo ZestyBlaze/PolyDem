@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "demeter:unfired_mug"
+        "recipes": "demeter:unfired_mug"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

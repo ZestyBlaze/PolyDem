@@ -1,5 +1,7 @@
 package dev.zestyblaze.demeter.util;
 
+import dev.zestyblaze.demeter.world.season.Season;
+
 import java.time.DayOfWeek;
 
 public class TimeUtil {
@@ -16,6 +18,25 @@ public class TimeUtil {
 
     public static int getElapsedYears(long time) {
         return Math.floorDiv(getElapsedDays(time), YEAR_DAYS);
+    }
+
+    public static int getCurrentSeason(long time) {
+        return Math.floorMod(getElapsedDays(time) / 28, 4) + 1;
+    }
+
+    public static Season getSeason(long time) {
+        int intSeason = getCurrentSeason(time);
+
+        if (intSeason == 1) {
+            return Season.SPRING;
+        } else if (intSeason == 2) {
+            return Season.SUMMER;
+        } else if (intSeason == 3) {
+            return Season.AUTUMN;
+        } else if (intSeason == 4) {
+            return Season.WINTER;
+        }
+        return null;
     }
 
     public static long getTimeOfDay(long time) {

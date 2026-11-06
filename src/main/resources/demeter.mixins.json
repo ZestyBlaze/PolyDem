@@ -3,12 +3,13 @@
   "package": "dev.zestyblaze.demeter.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "ChunkMapInvoker",
     "CropBlockMixin",
     "FarmlandBlockMixin",
+    "ItemMixin",
     "PitcherCropBlockMixin",
     "PlayerMixin",
     "PropertiesAccessor",
+    "ServerClockManagerMixin",
     "ServerPlayerMixin",
     "StemBlockMixin"
   ],
